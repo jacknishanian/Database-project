@@ -6,10 +6,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Activity page</title>
+<title>Owner page</title>
 </head>
 
-<center><h1>Welcome! <c:out value="${user.firstName}" /> <c:out value="${' '}" /> <c:out value="${user.lastName}" /> You have been logged in</h1> </center>
+<center><h1>Welcome! You have been logged in as Owner</h1> </center>
  
 	<body>
 	 <center>
@@ -38,22 +38,23 @@
             
 
             <tr style="text-align:center">
+                <c:forEach var="users" items="${listUser}">
             		<td><c:out value="${'$'}" /> <c:out value="${user.quote_price}"/></td>
-            		<td><c:out value="${user.quote_time}" /></td>
-                    <td><c:out value="${user.quote_note}"/></td>
-                    <td><c:out value="${user.quote_response}" /></td>
-                    <td><c:out value="${user.quote_date}" /></td>
+            		<td><c:out value="${users.quote_time}" /></td>
+                    <td><c:out value="${users.quote_note}"/></td>
+                    <td><c:out value="${users.quote_response}" /></td>
+                    <td><c:out value="${users.quote_date}" /></td>
                     
-                    <td><img src="data:image/jpg;base64, ${user.img_1}" width="200" height="200"></td>
-                    <td><img src="data:image/jpg;base64, ${user.img_2}" width="200" height="200"></td>
-                    <td><img src="data:image/jpg;base64, ${user.img_3}" width="200" height="200"></td>
+                    <td><img src="data:image/jpg;base64, ${users.img_1}" width="200" height="200"></td>
+                    <td><img src="data:image/jpg;base64, ${users.img_2}" width="200" height="200"></td>
+                    <td><img src="data:image/jpg;base64, ${users.img_3}" width="200" height="200"></td>
                     
-                    <td><c:out value="${user.work_order_terms}" /></td>
-                    <td><c:out value="${user.work_order_status}"/></td>
+                    <td><c:out value="${users.work_order_terms}" /></td>
+                    <td><c:out value="${users.work_order_status}"/></td>
                     
-                    <td><c:out value="${'$'}" /> <c:out value="${user.bill_amount}" /></td>
-                    <td><c:out value="${user.bill_status}" /></td>
-
+                    <td><c:out value="${'$'}" /> <c:out value="${users.bill_amount}" /></td>
+                    <td><c:out value="${users.bill_status}" /></td>
+				</c:forEach>
             
         </table>
             

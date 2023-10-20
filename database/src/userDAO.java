@@ -1,17 +1,13 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
+//import java.io.PrintWriter;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 //import java.sql.Connection;
@@ -20,6 +16,10 @@ import java.sql.ResultSet;
 //import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Base64;
+import java.io.ByteArrayOutputStream;
+import java.sql.Blob;
+import java.io.InputStream;
 /**
  * Servlet implementation class Connect
  */
@@ -80,7 +80,7 @@ public class userDAO
         }
     }
     
-    public List<user> listAllUsers() throws SQLException {
+    public List<user> listAllUsers() throws SQLException, IOException {
         List<user> listUser = new ArrayList<user>();        
         String sql = "SELECT * FROM User LEFT JOIN Quotes ON User.email = Quotes.id UNION SELECT * FROM User RIGHT JOIN Quotes ON User.email = Quotes.id";
         connect_func();
@@ -98,20 +98,97 @@ public class userDAO
         	String card_cvc = resultSet.getString("card_cvc");
         	String role = resultSet.getString("role");
         	String id = resultSet.getString("id");
-        	String tree_pic1 = resultSet.getString("tree_pic1");
-        	String tree_pic2 = resultSet.getString("tree_pic2");
-        	String tree_pic3 = resultSet.getString("tree_pic3");
-        	String quote_price = resultSet.getString("quote_price");
-        	String quote_time = resultSet.getString("quote_time");
-        	String quote_note = resultSet.getString("quote_note");
-        	String quote_response = resultSet.getString("quote_response");
-        	String quote_date = resultSet.getString("quote_date");
-        	String work_order_terms = resultSet.getString("work_order_terms");
-        	String work_order_status = resultSet.getString("work_order_status");
-        	String bill_amount = resultSet.getString("bill_amount");
-        	String bill_status = resultSet.getString("bill_status");
+        	Blob tree_pic1;
+        	Blob tree_pic2;
+        	Blob tree_pic3;
+        	String quote_price;
+        	String quote_time;
+        	String quote_note;
+        	String quote_response;
+        	String quote_date;
+        	String work_order_terms;
+        	String work_order_status;
+        	String bill_amount;
+        	String bill_status;
+        	String img_1;
+        	String img_2;
+        	String img_3;
+        	
+        	
+        	System.out.println(id);
+        	if (id != null) {
+        		System.out.println(id);
+        		tree_pic1 = resultSet.getBlob("tree_pic1");
+            	tree_pic2 = resultSet.getBlob("tree_pic2");
+            	tree_pic3 = resultSet.getBlob("tree_pic3");
+            	quote_price = resultSet.getString("quote_price");
+            	quote_time = resultSet.getString("quote_time");
+            	quote_note = resultSet.getString("quote_note");
+            	quote_response = resultSet.getString("quote_response");
+            	quote_date = resultSet.getString("quote_date");
+            	work_order_terms = resultSet.getString("work_order_terms");
+            	work_order_status = resultSet.getString("work_order_status");
+            	bill_amount = resultSet.getString("bill_amount");
+            	bill_status = resultSet.getString("bill_status");
+
+            	
+        		InputStream inputStream = tree_pic1.getBinaryStream();
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                byte[] buffer = new byte[4096];
+                int bytesRead = -1;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);                  
+                }
+                byte[] imageBytes = outputStream.toByteArray();
+                img_1 = Base64.getEncoder().encodeToString(imageBytes);
+                inputStream.close();
+                outputStream.close();
+                
+                inputStream = tree_pic2.getBinaryStream();
+                outputStream = new ByteArrayOutputStream();
+                buffer = new byte[4096];
+                bytesRead = -1;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);                  
+                }
+                imageBytes = outputStream.toByteArray();
+                img_2 = Base64.getEncoder().encodeToString(imageBytes);
+                inputStream.close();
+                outputStream.close();
+                
+                inputStream = tree_pic3.getBinaryStream();
+                outputStream = new ByteArrayOutputStream();
+                buffer = new byte[4096];
+                bytesRead = -1;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);                  
+                }
+                imageBytes = outputStream.toByteArray();
+                img_3 = Base64.getEncoder().encodeToString(imageBytes);
+                inputStream.close();
+                outputStream.close();
+        	}
+        	else {
+        		tree_pic1 = null;
+            	tree_pic2 = null;
+            	tree_pic3 = null;
+            	quote_price = "N/A";
+            	quote_time = "N/A";
+            	quote_note = "N/A";
+            	quote_response = "N/A";
+            	quote_date = "N/A";
+            	work_order_terms = "N/A";
+            	work_order_status = "N/A";
+            	bill_amount = "N/A";
+            	bill_status = "N/A";
+            	img_1 = null;
+            	img_2 = null;
+            	img_3 = null;
+        	}
+        	
+        	
              
-            user users = new user(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status);
+            user users = new user(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status, img_1, img_2, img_3);
             listUser.add(users);
         }        
         resultSet.close();
@@ -119,16 +196,14 @@ public class userDAO
         return listUser;
     }
     
-    public List<user> getUserQuotes(String email) throws SQLException {
+    
+    //needs testing
+    public List<user> getAllUserQuotes() throws SQLException, IOException {
     	List<user> listUser = new ArrayList<user>(); 
-    	//String sql = "SELECT * FROM User LEFT JOIN Quotes on User.email = Quotes.id where email = '?'";  //best so far
-    	String sql = "SELECT * FROM Quotes LEFT JOIN User on Quotes.id = User.email where id = '?'";
-    	//String sql = "SELECT * FROM Quotes where id = '?'";
+    	//String sql = "SELECT * FROM User LEFT JOIN Quotes on User.email = Quotes.id";  //best so far
+    	//String sql = "SELECT * FROM Quotes LEFT JOIN User on Quotes.id = User.email where id = '?'";
+    	String sql = "SELECT * FROM Quotes";
         connect_func();
-        
-        //preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
-        //preparedStatement.setString(1, email);
-        //ResultSet resultSet = preparedStatement.executeQuery();
         
         
         statement = (Statement) connect.createStatement();
@@ -136,18 +211,27 @@ public class userDAO
          
         while (resultSet.next()) {
         	//String email = resultSet.getString("email");
-        	String firstName = resultSet.getString("firstName");
-        	String lastName = resultSet.getString("lastName");
-        	String password = resultSet.getString("password");
-        	String phone_num = resultSet.getString("phone_num");
-        	String card_num = resultSet.getString("card_num");
-        	String card_date = resultSet.getString("card_date");
-        	String card_cvc = resultSet.getString("card_cvc");
-        	String role = resultSet.getString("role");
+        	//String firstName = resultSet.getString("firstName");
+        	//String lastName = resultSet.getString("lastName");
+        	//String password = resultSet.getString("password");
+        	//String phone_num = resultSet.getString("phone_num");
+        	//String card_num = resultSet.getString("card_num");
+        	//String card_date = resultSet.getString("card_date");
+        	//String card_cvc = resultSet.getString("card_cvc");
+        	//String role = resultSet.getString("role");
+        	String email = null;
+        	String firstName = null;
+        	String lastName = null;
+        	String password = null;
+        	String phone_num = null;
+        	String card_num = null;
+        	String card_date = null;
+        	String card_cvc = null;
+        	String role = null;
         	String id = resultSet.getString("id");
-        	String tree_pic1 = resultSet.getString("tree_pic1");
-        	String tree_pic2 = resultSet.getString("tree_pic2");
-        	String tree_pic3 = resultSet.getString("tree_pic3");
+        	Blob tree_pic1 = resultSet.getBlob("tree_pic1");
+        	Blob tree_pic2 = resultSet.getBlob("tree_pic2");
+        	Blob tree_pic3 = resultSet.getBlob("tree_pic3");
         	String quote_price = resultSet.getString("quote_price");
         	String quote_time = resultSet.getString("quote_time");
         	String quote_note = resultSet.getString("quote_note");
@@ -157,8 +241,62 @@ public class userDAO
         	String work_order_status = resultSet.getString("work_order_status");
         	String bill_amount = resultSet.getString("bill_amount");
         	String bill_status = resultSet.getString("bill_status");
+        	String img_1;
+        	String img_2;
+        	String img_3;
+        	
+        	InputStream inputStream = tree_pic1.getBinaryStream();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            int bytesRead = -1;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);                  
+            }
+            byte[] imageBytes = outputStream.toByteArray();
+            img_1 = Base64.getEncoder().encodeToString(imageBytes);
+            inputStream.close();
+            outputStream.close();
+            
+            System.out.println(img_1);
+            System.out.println();
+            System.out.println();
+            
+            
+            inputStream = tree_pic2.getBinaryStream();
+            outputStream = new ByteArrayOutputStream();
+            buffer = new byte[4096];
+            bytesRead = -1;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);                  
+            }
+            imageBytes = outputStream.toByteArray();
+            img_2 = Base64.getEncoder().encodeToString(imageBytes);
+            inputStream.close();
+            outputStream.close();
+            
+            System.out.println(img_2);
+            System.out.println();
+            System.out.println();
+            
+            
+            inputStream = tree_pic3.getBinaryStream();
+            outputStream = new ByteArrayOutputStream();
+            buffer = new byte[4096];
+            bytesRead = -1;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);                  
+            }
+            imageBytes = outputStream.toByteArray();
+            img_3 = Base64.getEncoder().encodeToString(imageBytes);
+            inputStream.close();
+            outputStream.close();
+            
+            System.out.println(img_3);
+            System.out.println();
+            System.out.println();
+            
              
-            user users = new user(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status);
+            user users = new user(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status, img_1, img_2, img_3);
             listUser.add(users);
         }        
         resultSet.close();
@@ -172,6 +310,8 @@ public class userDAO
         }
     }
     
+    
+    //needs work
     public void insert(user users) throws SQLException {
     	connect_func("root","pass1234");         
 		String sql = "insert into User(email, firstName, lastName, password, card_num, card_date, card_cvc ,role) values (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -189,9 +329,9 @@ public class userDAO
 		preparedStatement.setString(8, users.getCard_cvc());
 		preparedStatement.setString(9, users.getRole());
 		preparedStatement.setString(10, users.getId());
-		preparedStatement.setString(11, users.getTree_pic1());
-		preparedStatement.setString(12, users.getTree_pic2());
-		preparedStatement.setString(13, users.getTree_pic3());
+		preparedStatement.setBlob(11, users.getTree_pic1());
+		preparedStatement.setBlob(12, users.getTree_pic2());
+		preparedStatement.setBlob(13, users.getTree_pic3());
 		preparedStatement.setString(14, users.getQuote_price());
 		preparedStatement.setString(15, users.getQuote_time());
 		preparedStatement.setString(16, users.getQuote_note());
@@ -242,9 +382,9 @@ public class userDAO
         preparedStatement.setString(8, users.getCard_cvc());
         preparedStatement.setString(9, users.getRole());
         preparedStatement.setString(10, users.getId());
-        preparedStatement.setString(11, users.getTree_pic1());
-        preparedStatement.setString(12, users.getTree_pic2());
-        preparedStatement.setString(13, users.getTree_pic3());
+        preparedStatement.setBlob(11, users.getTree_pic1());
+        preparedStatement.setBlob(12, users.getTree_pic2());
+        preparedStatement.setBlob(13, users.getTree_pic3());
         preparedStatement.setString(14, users.getQuote_price());
         preparedStatement.setString(15, users.getQuote_time());
         preparedStatement.setString(16, users.getQuote_note());
@@ -262,7 +402,7 @@ public class userDAO
         return rowUpdated;     
     }
     
-    public user getUser(String email) throws SQLException {
+    public user getUser(String email) throws SQLException, IOException {
     	user user = null; 
     	String sql = "SELECT * FROM User LEFT JOIN Quotes on User.email = Quotes.id where email = ?";
     	//String sql = "SELECT * FROM Quotes where id = ?";
@@ -283,9 +423,9 @@ public class userDAO
         	String card_cvc = resultSet.getString("card_cvc");
         	String role = resultSet.getString("role");
         	String id = resultSet.getString("id");
-        	String tree_pic1 = resultSet.getString("tree_pic1");
-        	String tree_pic2 = resultSet.getString("tree_pic2");
-        	String tree_pic3 = resultSet.getString("tree_pic3");
+        	Blob tree_pic1 = resultSet.getBlob("tree_pic1");
+        	Blob tree_pic2 = resultSet.getBlob("tree_pic2");
+        	Blob tree_pic3 = resultSet.getBlob("tree_pic3");
         	String quote_price = resultSet.getString("quote_price");
         	String quote_time = resultSet.getString("quote_time");
         	String quote_note = resultSet.getString("quote_note");
@@ -295,10 +435,54 @@ public class userDAO
         	String work_order_status = resultSet.getString("work_order_status");
         	String bill_amount = resultSet.getString("bill_amount");
         	String bill_status = resultSet.getString("bill_status");
+        	String img_1;
+        	String img_2;
+        	String img_3;
+        	
+        	InputStream inputStream = tree_pic1.getBinaryStream();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            int bytesRead = -1;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);                  
+            }
+            byte[] imageBytes = outputStream.toByteArray();
+            img_1 = Base64.getEncoder().encodeToString(imageBytes);
+            inputStream.close();
+            outputStream.close();
+            System.out.println(img_1);
+            
+            inputStream = tree_pic2.getBinaryStream();
+            outputStream = new ByteArrayOutputStream();
+            buffer = new byte[4096];
+            bytesRead = -1;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);                  
+            }
+            imageBytes = outputStream.toByteArray();
+            img_2 = Base64.getEncoder().encodeToString(imageBytes);
+            inputStream.close();
+            outputStream.close();
+            System.out.println(img_2);
+            
+            inputStream = tree_pic3.getBinaryStream();
+            outputStream = new ByteArrayOutputStream();
+            buffer = new byte[4096];
+            bytesRead = -1;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);                  
+            }
+            imageBytes = outputStream.toByteArray();
+            img_3 = Base64.getEncoder().encodeToString(imageBytes);
+            inputStream.close();
+            outputStream.close();
+            System.out.println(img_3);
+            
+            
 
             
-            user = new user(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status);
-        }
+            user = new user(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status, img_1, img_2, img_3);
+        } 
          
         resultSet.close();
         statement.close();

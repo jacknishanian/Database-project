@@ -15,9 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
+import java.sql.Blob;
+import javax.servlet.annotation.WebServlet;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.sql.ResultSet;
+import java.util.Base64;
 
 
 public class ControlServlet extends HttpServlet {
@@ -61,6 +66,9 @@ public class ControlServlet extends HttpServlet {
         	case "/root":
         		rootPage(request,response, "");
         		break;
+        	case "/owner":
+        		ownerPage(request,response, "");
+        		break;
         	case "/logout":
         		logout(request,response);
         		break;
@@ -95,10 +103,19 @@ public class ControlServlet extends HttpServlet {
 	    }
 	    private void userPage(HttpServletRequest request, HttpServletResponse response, String userName) throws ServletException, IOException, SQLException{
 	    	System.out.println("user view");
-			request.setAttribute("user", userDAO.getUser(userName)); //gets first quote for a user
-	    	//request.setAttribute("listUser", userDAO.getUserQuotes(userName)); //broken supposed to get multiple quotes for the user (based off root page listAllUsers()) 
-	    	request.getRequestDispatcher("activitypage.jsp").forward(request, response);
+			request.setAttribute("user", userDAO.getUser(userName));
+			request.getRequestDispatcher("activitypage.jsp").forward(request, response);
+	    } 
+	    private void ownerPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
+
+	    	
+	    	
+	    	System.out.println("owner view");
+			request.setAttribute("listUser", userDAO.getAllUserQuotes());
+	    	request.getRequestDispatcher("onwerPage.jsp").forward(request, response);
 	    }
+          
+      
 	    
 	    
 	    protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
@@ -110,6 +127,12 @@ public class ControlServlet extends HttpServlet {
 				 session = request.getSession();
 				 session.setAttribute("username", email);
 				 rootPage(request, response, "");
+	    	 }
+	    	 else if (email.equals("dSmith@email.com") && password.equals("smith1234")) {
+				 System.out.println("Login Successful! Redirecting to owner");
+				 session = request.getSession();
+				 session.setAttribute("username", email);
+				 ownerPage(request, response, "");
 	    	 }
 	    	 else if(userDAO.isValid(email, password)) 
 	    	 {
@@ -138,9 +161,12 @@ public class ControlServlet extends HttpServlet {
 	    	String card_cvc = request.getParameter("card_cvc"); 
 	    	String role = request.getParameter("role"); 
 	    	String id = request.getParameter("id"); 
-	    	String tree_pic1 = request.getParameter("tree_pic1"); 
-	    	String tree_pic2 = request.getParameter("tree_pic2"); 
-	    	String tree_pic3 = request.getParameter("tree_pic3"); 
+	    	//Blob tree_pic1 = request.getParameter("tree_pic1"); 
+	    	Blob tree_pic1 = null;
+	    	Blob tree_pic2 = null;
+	    	Blob tree_pic3 = null;
+	    	//String tree_pic2 = request.getParameter("tree_pic2"); 
+	    	//String tree_pic3 = request.getParameter("tree_pic3"); 
 	    	String quote_price = request.getParameter("quote_price"); 
 	    	String quote_time = request.getParameter("quote_time"); 
 	    	String quote_note = request.getParameter("quote_note"); 
@@ -151,12 +177,14 @@ public class ControlServlet extends HttpServlet {
 	    	String bill_amount = request.getParameter("bill_amount"); 
 	    	String bill_status = request.getParameter("bill_status"); 
 	   	 	String confirm = request.getParameter("confirmation");
+	   	 	String img_1 = null;
+	   	 	String img_2 = null;
+	   	 	String img_3 = null;
 	   	 	
 	   	 	if (password.equals(confirm)) {
 	   	 		if (!userDAO.checkEmail(email)) {
 		   	 		System.out.println("Registration Successful! Added to database");
-		            user users = new user(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status 
-);
+		            user users = new user(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status, img_1, img_2, img_3);
 		   	 		userDAO.insert(users);
 		   	 		response.sendRedirect("login.jsp");
 	   	 		}

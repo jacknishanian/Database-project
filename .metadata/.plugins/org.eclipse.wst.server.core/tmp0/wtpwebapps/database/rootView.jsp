@@ -29,14 +29,7 @@
                 <th>Credit Card#</th>
                 <th>Credit Card Date</th>
                 <th>Credit Card CVC</th>
-                <th>User role</th>
-                <th>Quote content</th>
-                <th>Quote Response</th>
-                <th>Quote status</th>
-                <th>Work Order Content</th>
-                <th>Work Order Status</th>
-                <th>Bill Content</th>
-                <th>Bill Status</th>
+
                 
             </tr>
             <c:forEach var="users" items="${listUser}">
@@ -48,15 +41,7 @@
                     <td><c:out value="${users.card_num}" /></td>
                     <td><c:out value="${users.card_date}" /></td>
                     <td><c:out value="${users.card_cvc}" /></td>
-                    <td><c:out value="${users.role}" /></td>
-                    <td><c:out value="${users.quotes_content}" /></td>
-                    <td><c:out value="${users.quotes_response}"/></td>
-                    <td><c:out value="${users.quotes_status}" /></td>
-                    <td><c:out value="${users.work_order_content}" /></td>
-                    <td><c:out value="${users.work_order_status}" /></td>
-                    <td><c:out value="${users.bill_of_work_content}"/></td>
-                    <td><c:out value="${users.bill_of_work_status}" /></td>
-                    
+
             </c:forEach>
         </table>
 	</div>
