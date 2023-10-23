@@ -1,0 +1,65 @@
+use projectdb;
+drop table if exists User;
+drop table if exists Quotes;
+set secure_file_priv = '';
+
+CREATE TABLE if not exists User( 
+    email VARCHAR(50) NOT NULL, 
+    firstName VARCHAR(10) NOT NULL, 
+    lastName VARCHAR(10) NOT NULL, 
+    password VARCHAR(20) NOT NULL, 
+    
+    phone_num VARCHAR(14),
+    
+    card_num VARCHAR(20),
+    card_date VARCHAR(5),
+    card_cvc VARCHAR(3),
+    
+    role VARCHAR(10),
+    
+    PRIMARY KEY (email) 
+    );
+CREATE TABLE if not exists Quotes( 
+    id VARCHAR(50) NOT NULL,
+    
+    #tree_pic1 VARCHAR(25),
+    #tree_pic2 VARCHAR(25),
+    #tree_pic3 VARCHAR(25),
+    
+    tree_pic1 LONGBLOB,
+    tree_pic2 LONGBLOB,
+    tree_pic3 LONGBLOB,
+    
+    
+	quote_price VARCHAR(50),
+    quote_time VARCHAR(50),
+    quote_note VARCHAR(50),
+    quote_response VARCHAR(10),
+    quote_date VARCHAR(8),
+    
+    work_order_terms VARCHAR(50),
+    work_order_status VARCHAR(15),
+    
+    bill_amount VARCHAR(50),
+    bill_status VARCHAR(15)
+    );
+    
+    insert into Quotes(id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status)
+    values
+    ('lJones@email.com', LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic.jpg'), LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic2.jpg'), LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic3.jpg'), '1200', '2 days', 'no note', 'Approved', '10/18/23', 'terms of work', 'uncompleted', '1200', 'unpaied');
+    
+    insert into User(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc, role)
+    values 
+    ('root', 'default', 'default','pass1234','(000)-000-0000', '0000-0000-0000-0000', '00/00', '000', 'admin'),
+	('dSmith@email.com', 'David', 'Smith','smith1234', '(111)-222-3333', '0000-0000-0000-0000', '00/00', '000', 'owner'),
+    ('lJones@email.com', 'Luke', 'Jones','jones1234', '(111)-222-3333', '1234-5555-25607-5403', '10/29', '123', 'customer');
+    
+    
+    UPDATE Quotes SET tree_pic1=LOAD_FILE("C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic.jpg") where id = 'lJones@email.com';
+    
+    select * from User;
+    select * from Quotes;
+    
+    #SELECT LOAD_FILE("C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic.jpg");
+#SELECT * FROM User LEFT JOIN Quotes ON User.email = Quotes.id UNION SELECT * FROM User RIGHT JOIN Quotes ON User.email = Quotes.id;
+

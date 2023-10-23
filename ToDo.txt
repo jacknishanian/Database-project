@@ -1,0 +1,8 @@
+Make pics save in a local project folder
+
+Get project to open owner page and make adjustments as needed
+
+update sql for initalize database button
+
+create registration page 
+	figure out picture upload or swap to useing img links in place of files
