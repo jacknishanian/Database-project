@@ -7,10 +7,12 @@
 	<div align="center">
 		<p> ${errorOne } </p>
 		<p> ${errorTwo } </p>
-		<form action="register">
+		
+		
+		<form action="register" enctype="multipart/form-data" method="POST">
 			<table border="1" cellpadding="5">
 				<tr>
-					<th>Username: </th>
+					<th>Email: </th>
 					<td align="center" colspan="3">
 						<input type="text" name="email" size="45"  value="example@gmail.com" onfocus="this.value=''">
 					</td>
@@ -40,6 +42,55 @@
 					</td>
 				
 				</tr>
+				<tr>
+					<th>Phone Number: </th>
+					<td align="center" colspan="3">
+						<input type="text" name="phone_num" size="45"  value="(xxx)-xxx-xxxx" onfocus="this.value=''">
+					</td>
+				</tr>
+				<tr>
+					<th>Credit card Number: </th>
+					<td align="center" colspan="3">
+						<input type="text" name="card_num" size="45"  value="xxxx-xxxx-xxxx-xxxx" onfocus="this.value=''">
+					</td>
+				</tr>
+				<tr>
+					<th>Credit card exp date: </th>
+					<td align="center" colspan="3">
+						<input type="text" name="card_date" size="45"  value="xx/xx" onfocus="this.value=''">
+					</td>
+				</tr>
+				<tr>
+					<th>Credit card CVC: </th>
+					<td align="center" colspan="3">
+						<input type="text" name="card_cvc" size="45"  value="xxx" onfocus="this.value=''">
+					</td>
+				</tr>
+				
+				
+				
+				
+				
+				<tr>
+					<th>Picture 1: </th>
+					<td align="center" colspan="3">
+						<input type="file" name="tree_pic1" onfocus="this.value=''">
+					</td>
+				</tr>
+				<tr>
+					<th>Picture 2: </th>
+					<td align="center" colspan="3">
+						<input type="file" name="tree_pic2" onfocus="this.value=''">
+					</td>
+				</tr>
+				<tr>
+					<th>Picture 3: </th>
+					<td align="center" colspan="3">
+						<input type="file" name="tree_pic3" onfocus="this.value=''">
+					</td>
+				</tr>
+				
+				
 				<tr>
 					<td align="center" colspan="5">
 						<input type="submit" value="Register"/>

@@ -51,6 +51,23 @@ public class userDAO
         }
     }
     
+    public String picToImg(Blob tree_pic) throws IOException, SQLException {
+    	String img;
+    	InputStream inputStream = tree_pic.getBinaryStream();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[4096];
+        int bytesRead = -1;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, bytesRead);                  
+        }
+        byte[] imageBytes = outputStream.toByteArray();
+        img = Base64.getEncoder().encodeToString(imageBytes);
+        inputStream.close();
+        outputStream.close();
+        
+        return img;
+    }
+    
     public boolean database_login(String email, String password) throws SQLException{
     	try {
     		connect_func("root","pass1234");
@@ -130,43 +147,10 @@ public class userDAO
             	work_order_status = resultSet.getString("work_order_status");
             	bill_amount = resultSet.getString("bill_amount");
             	bill_status = resultSet.getString("bill_status");
-
-            	
-        		InputStream inputStream = tree_pic1.getBinaryStream();
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                byte[] buffer = new byte[4096];
-                int bytesRead = -1;
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, bytesRead);                  
-                }
-                byte[] imageBytes = outputStream.toByteArray();
-                img_1 = Base64.getEncoder().encodeToString(imageBytes);
-                inputStream.close();
-                outputStream.close();
+                img_1 = picToImg(tree_pic1);
+                img_2 = picToImg(tree_pic2);
+                img_3 = picToImg(tree_pic3);
                 
-                inputStream = tree_pic2.getBinaryStream();
-                outputStream = new ByteArrayOutputStream();
-                buffer = new byte[4096];
-                bytesRead = -1;
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, bytesRead);                  
-                }
-                imageBytes = outputStream.toByteArray();
-                img_2 = Base64.getEncoder().encodeToString(imageBytes);
-                inputStream.close();
-                outputStream.close();
-                
-                inputStream = tree_pic3.getBinaryStream();
-                outputStream = new ByteArrayOutputStream();
-                buffer = new byte[4096];
-                bytesRead = -1;
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, bytesRead);                  
-                }
-                imageBytes = outputStream.toByteArray();
-                img_3 = Base64.getEncoder().encodeToString(imageBytes);
-                inputStream.close();
-                outputStream.close();
         	}
         	else {
         		tree_pic1 = null;
@@ -241,59 +225,9 @@ public class userDAO
         	String work_order_status = resultSet.getString("work_order_status");
         	String bill_amount = resultSet.getString("bill_amount");
         	String bill_status = resultSet.getString("bill_status");
-        	String img_1;
-        	String img_2;
-        	String img_3;
-        	
-        	InputStream inputStream = tree_pic1.getBinaryStream();
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            byte[] buffer = new byte[4096];
-            int bytesRead = -1;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);                  
-            }
-            byte[] imageBytes = outputStream.toByteArray();
-            img_1 = Base64.getEncoder().encodeToString(imageBytes);
-            inputStream.close();
-            outputStream.close();
-            
-            System.out.println(img_1);
-            System.out.println();
-            System.out.println();
-            
-            
-            inputStream = tree_pic2.getBinaryStream();
-            outputStream = new ByteArrayOutputStream();
-            buffer = new byte[4096];
-            bytesRead = -1;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);                  
-            }
-            imageBytes = outputStream.toByteArray();
-            img_2 = Base64.getEncoder().encodeToString(imageBytes);
-            inputStream.close();
-            outputStream.close();
-            
-            System.out.println(img_2);
-            System.out.println();
-            System.out.println();
-            
-            
-            inputStream = tree_pic3.getBinaryStream();
-            outputStream = new ByteArrayOutputStream();
-            buffer = new byte[4096];
-            bytesRead = -1;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);                  
-            }
-            imageBytes = outputStream.toByteArray();
-            img_3 = Base64.getEncoder().encodeToString(imageBytes);
-            inputStream.close();
-            outputStream.close();
-            
-            System.out.println(img_3);
-            System.out.println();
-            System.out.println();
+        	String img_1 = picToImg(tree_pic1);
+        	String img_2 = picToImg(tree_pic2);
+        	String img_3 = picToImg(tree_pic3);
             
              
             user users = new user(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status, img_1, img_2, img_3);
@@ -311,11 +245,11 @@ public class userDAO
     }
     
     
-    //needs work
+    
     public void insert(user users) throws SQLException {
     	connect_func("root","pass1234");         
-		String sql = "insert into User(email, firstName, lastName, password, card_num, card_date, card_cvc ,role) values (?, ?, ?, ?, ?, ?, ?, ?)";
-		String quote = "insert into Quotes(id, quotes_content, quotes_response, quotes_status, work_order_content, work_order_status, bill_of_work_content, bill_of_work_status,) values (?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into User(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc ,role) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String quote = "insert into Quotes(id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
 		preparedStatement2 = (PreparedStatement) connect.prepareStatement(quote);
 		
@@ -328,22 +262,24 @@ public class userDAO
 		preparedStatement.setString(7, users.getCard_date());
 		preparedStatement.setString(8, users.getCard_cvc());
 		preparedStatement.setString(9, users.getRole());
-		preparedStatement.setString(10, users.getId());
-		preparedStatement.setBlob(11, users.getTree_pic1());
-		preparedStatement.setBlob(12, users.getTree_pic2());
-		preparedStatement.setBlob(13, users.getTree_pic3());
-		preparedStatement.setString(14, users.getQuote_price());
-		preparedStatement.setString(15, users.getQuote_time());
-		preparedStatement.setString(16, users.getQuote_note());
-		preparedStatement.setString(17, users.getQuote_response());
-		preparedStatement.setString(18, users.getQuote_date());
-		preparedStatement.setString(19, users.getWork_order_terms());
-		preparedStatement.setString(20, users.getWork_order_status());
-		preparedStatement.setString(21, users.getBill_amount());
-		preparedStatement.setString(22, users.getBill_status());
-
 		preparedStatement.executeUpdate();
         preparedStatement.close();
+		
+	    preparedStatement2.setString(1, users.getId());
+		preparedStatement2.setBlob(2, users.getTree_pic1());
+		preparedStatement2.setBlob(3, users.getTree_pic2());
+		preparedStatement2.setBlob(4, users.getTree_pic3());
+		preparedStatement2.setString(5, users.getQuote_price());
+		preparedStatement2.setString(6, users.getQuote_time());
+		preparedStatement2.setString(7, users.getQuote_note());
+		preparedStatement2.setString(8, users.getQuote_response());
+		preparedStatement2.setString(9, users.getQuote_date());
+		preparedStatement2.setString(10, users.getWork_order_terms());
+		preparedStatement2.setString(11, users.getWork_order_status());
+		preparedStatement2.setString(12, users.getBill_amount());
+		preparedStatement2.setString(13, users.getBill_status());
+
+		
         preparedStatement2.executeUpdate();
         preparedStatement2.close();
     }
@@ -435,48 +371,9 @@ public class userDAO
         	String work_order_status = resultSet.getString("work_order_status");
         	String bill_amount = resultSet.getString("bill_amount");
         	String bill_status = resultSet.getString("bill_status");
-        	String img_1;
-        	String img_2;
-        	String img_3;
-        	
-        	InputStream inputStream = tree_pic1.getBinaryStream();
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            byte[] buffer = new byte[4096];
-            int bytesRead = -1;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);                  
-            }
-            byte[] imageBytes = outputStream.toByteArray();
-            img_1 = Base64.getEncoder().encodeToString(imageBytes);
-            inputStream.close();
-            outputStream.close();
-            System.out.println(img_1);
-            
-            inputStream = tree_pic2.getBinaryStream();
-            outputStream = new ByteArrayOutputStream();
-            buffer = new byte[4096];
-            bytesRead = -1;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);                  
-            }
-            imageBytes = outputStream.toByteArray();
-            img_2 = Base64.getEncoder().encodeToString(imageBytes);
-            inputStream.close();
-            outputStream.close();
-            System.out.println(img_2);
-            
-            inputStream = tree_pic3.getBinaryStream();
-            outputStream = new ByteArrayOutputStream();
-            buffer = new byte[4096];
-            bytesRead = -1;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);                  
-            }
-            imageBytes = outputStream.toByteArray();
-            img_3 = Base64.getEncoder().encodeToString(imageBytes);
-            inputStream.close();
-            outputStream.close();
-            System.out.println(img_3);
+        	String img_1 = picToImg(tree_pic1);
+        	String img_2 = picToImg(tree_pic2);
+        	String img_3 = picToImg(tree_pic3);
             
             
 
@@ -560,12 +457,14 @@ public class userDAO
         String[] INITIAL = {"use projectdb; ",
         		"drop table if exists Quotes; ",
         		"drop table if exists User; ",
+        		//"set secure_file_priv = '';",
 
         		("CREATE TABLE if not exists User( " +
         		    "email VARCHAR(50) NOT NULL, " +
         		    "firstName VARCHAR(10) NOT NULL, " +
         		    "lastName VARCHAR(10) NOT NULL, " +
         		    "password VARCHAR(20) NOT NULL, " +
+        		    "phone_num VARCHAR(14), " +
         		    "card_num VARCHAR(20), " +
         		    "card_date VARCHAR(5), " +
         		    "card_cvc VARCHAR(3), " +
@@ -575,25 +474,30 @@ public class userDAO
         		    
         		    ("CREATE TABLE if not exists Quotes( " +
         		    "id VARCHAR(50) NOT NULL, " +
-        			"quotes_content VARCHAR(50), " +
-        		    "quotes_response VARCHAR(50), " +
-        		    "quotes_status VARCHAR(50), " +
-        		    "work_order_content VARCHAR(50), " +
+					"tree_pic1 LONGBLOB, " +
+					"tree_pic2 LONGBLOB, " +
+					"tree_pic3 LONGBLOB, " +
+        		    "quote_price VARCHAR(50), " +
+        		    "quote_time VARCHAR(50), " +
+        			"quote_note VARCHAR(50), " +
+        		    "quote_response VARCHAR(10), " +
+        		    "quote_date VARCHAR(8), " +
+        		    "work_order_terms VARCHAR(50), " +
         		    "work_order_status VARCHAR(15), " +
         		    "bill_of_work_content VARCHAR(50), " +
         		    "bill_of_work_status VARCHAR(15)" + ");")
         };
 
-        String[] TUPLES = {("insert into Quotes(id, quotes_content, quotes_response, quotes_status, work_order_content, work_order_status, bill_of_work_content, bill_of_work_status) " +
+        String[] TUPLES = {("insert into Quotes(id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status) " +
         		    "values" +
-        		    "('lJones@email.com', 'tree removal', 'Can do for $1,200', 'Approved', 'remove tree for 1200', 'unfufilled', '1200', 'unpaied');")
+        		    "('lJones@email.com', LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic.jpg'), LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic2.jpg'), LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic3.jpg'), '1200', '2 days', 'no note', 'Approved', '10/18/23', 'terms of work', 'uncompleted', '1200', 'unpaied');")
         		    };
 
-        String[] TUPLES2 = {("insert into User(email, firstName, lastName, password, card_num, card_date, card_cvc, role)" +
+        String[] TUPLES2 = {("insert into User(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc, role)" +
         		    "values" +
-        		    "('root', 'default', 'default','pass1234', '0000-0000-0000-0000', '00/00', '000', 'admin')," +
-        			"('dSmith@email.com', 'David', 'Smith','smith1234', '0000-0000-0000-0000', '00/00', '000', 'owner')," +
-        		    "('lJones@email.com', 'Luke', 'Jones','jones1234', '1234-5555-25607-5403', '10/29', '123', 'customer');")
+        		    "('root', 'default', 'default','pass1234','(000)-000-0000', '0000-0000-0000-0000', '00/00', '000', 'admin')," +
+        			"('dSmith@email.com', 'David', 'Smith','smith1234', '(111)-222-3333', '0000-0000-0000-0000', '00/00', '000', 'owner')," +
+        		    "('lJones@email.com', 'Luke', 'Jones','jones1234', '(111)-222-3333', '1234-5555-25607-5403', '10/29', '123', 'customer');")
         		    };
         
         //for loop to put these in database

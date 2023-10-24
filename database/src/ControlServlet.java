@@ -7,22 +7,29 @@ import java.util.Date;
 import java.util.List;
  
 import javax.servlet.RequestDispatcher;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.Blob;
-import javax.servlet.annotation.WebServlet;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.util.Base64;
+import javax.sql.rowset.serial.SerialBlob;
+
+@MultipartConfig(fileSizeThreshold=1024*1024*10, 	// 10 MB 
+				maxFileSize=1024*1024*50,      	// 50 MB
+				maxRequestSize=1024*1024*100)   	// 100 MB
 
 
 public class ControlServlet extends HttpServlet {
@@ -42,6 +49,7 @@ public class ControlServlet extends HttpServlet {
 	    	currentUser= "";
 	    }
 	    
+	    //need multi-part configuration
 	    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	        doGet(request, response);
 	    }
@@ -107,12 +115,9 @@ public class ControlServlet extends HttpServlet {
 			request.getRequestDispatcher("activitypage.jsp").forward(request, response);
 	    } 
 	    private void ownerPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
-
-	    	
-	    	
 	    	System.out.println("owner view");
 			request.setAttribute("listUser", userDAO.getAllUserQuotes());
-	    	request.getRequestDispatcher("onwerPage.jsp").forward(request, response);
+	    	request.getRequestDispatcher("onwerView.jsp").forward(request, response);
 	    }
           
       
@@ -155,37 +160,58 @@ public class ControlServlet extends HttpServlet {
 	    	String firstName = request.getParameter("firstName");  
 	    	String lastName = request.getParameter("lastName");   
 	    	String password = request.getParameter("password");  
+	    	String confirm = request.getParameter("confirmation");
 	    	String phone_num = request.getParameter("phone_num"); 
 	    	String card_num = request.getParameter("card_num"); 
 	    	String card_date = request.getParameter("card_date"); 
 	    	String card_cvc = request.getParameter("card_cvc"); 
-	    	String role = request.getParameter("role"); 
-	    	String id = request.getParameter("id"); 
-	    	//Blob tree_pic1 = request.getParameter("tree_pic1"); 
-	    	Blob tree_pic1 = null;
-	    	Blob tree_pic2 = null;
-	    	Blob tree_pic3 = null;
-	    	//String tree_pic2 = request.getParameter("tree_pic2"); 
-	    	//String tree_pic3 = request.getParameter("tree_pic3"); 
-	    	String quote_price = request.getParameter("quote_price"); 
-	    	String quote_time = request.getParameter("quote_time"); 
-	    	String quote_note = request.getParameter("quote_note"); 
-	    	String quote_response = request.getParameter("quote_response"); 
-	    	String quote_date = request.getParameter("quote_date"); 
-	    	String work_order_terms = request.getParameter("work_order_terms"); 
-	    	String work_order_status = request.getParameter("work_order_status"); 
-	    	String bill_amount = request.getParameter("bill_amount"); 
-	    	String bill_status = request.getParameter("bill_status"); 
-	   	 	String confirm = request.getParameter("confirmation");
+	    	String role = "customer"; 
+	    	
+	    	
+	    	//Blob tree_pic1 = toBlob(request.getPart("tree_pic1"));
+	    	//Blob tree_pic2 = toBlob(request.getPart("tree_pic2"));
+	    	//Blob tree_pic3 = toBlob(request.getPart("tree_pic3"));
+	    	System.out.println("made it here");
+	    	System.out.println(toBlob(request.getPart("tree_pic1")));
+	    	
+	    	//Blob tree_pic1 = toBlob(request.getParameter("tree_pic1"));
+	    	//Blob tree_pic2 = toBlob(request.getParameter("tree_pic2"));
+	    	//Blob tree_pic3 = toBlob(request.getParameter("tree_pic3"));
+	    	
+	    	//System.out.println(tree_pic1);
+
+	    	
+	    	String id = request.getParameter("email"); 
+	    	// make defaults
+	    	String quote_price = "N/A"; 
+	    	String quote_time = "N/A"; 
+	    	String quote_note = "N/A"; 
+	    	String quote_response = "N/A"; 
+	    	String quote_date = "N/A"; 
+	    	String work_order_terms = "N/A"; 
+	    	String work_order_status = "N/A"; 
+	    	String bill_amount = "N/A"; 
+	    	String bill_status = "N/A"; 
+	
+	   	 	//end defaults
+	    	
+	   	 	Blob tree_pic1 = toBlob(request.getPart("tree_pic1"));
+	   	 	Blob tree_pic2 = toBlob(request.getPart("tree_pic2"));
+	    	Blob tree_pic3 = toBlob(request.getPart("tree_pic3"));
+	    	
 	   	 	String img_1 = null;
 	   	 	String img_2 = null;
 	   	 	String img_3 = null;
 	   	 	
+	   	 	
 	   	 	if (password.equals(confirm)) {
 	   	 		if (!userDAO.checkEmail(email)) {
 		   	 		System.out.println("Registration Successful! Added to database");
+		   	 		
+		   	 		
 		            user users = new user(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status, img_1, img_2, img_3);
-		   	 		userDAO.insert(users);
+		            System.out.println("made it here2");
+		            userDAO.insert(users);
 		   	 		response.sendRedirect("login.jsp");
 	   	 		}
 		   	 	else {
@@ -200,20 +226,20 @@ public class ControlServlet extends HttpServlet {
 	   		 request.getRequestDispatcher("register.jsp").forward(request, response);
 	   	 	}
 	    }    
-	    private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	    	currentUser = "";
         		response.sendRedirect("login.jsp");
-        	}
-	
-	    
-
-	     
-        
-	    
-	    
-	    
-	    
-	    
+        	} 
+		
+		public static Blob toBlob(Part pic) throws SQLException, IOException {
+			InputStream inputStream = null;
+	   	 	
+	   	 	inputStream = pic.getInputStream();
+	   	 	byte[] img = inputStream.readAllBytes();
+	   	 	return new SerialBlob(img);
+			
+		}
 }
 	        
 	        
