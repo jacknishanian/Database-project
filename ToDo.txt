@@ -1,3 +1,4 @@
-Get project to open owner page and make adjustments as needed
+make ownerpage -> editPage
+make editPage save edits via new userDAO function ex insert
 
 update sql for initalize database button

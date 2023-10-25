@@ -49,7 +49,6 @@ public class ControlServlet extends HttpServlet {
 	    	currentUser= "";
 	    }
 	    
-	    //need multi-part configuration
 	    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	        doGet(request, response);
 	    }
@@ -76,6 +75,14 @@ public class ControlServlet extends HttpServlet {
         		break;
         	case "/owner":
         		ownerPage(request,response, "");
+        		break;
+        	case "/edit": // should be called when you go to edit a quote
+        		System.out.println("Enter edit page");
+        		quoteEditer(request,response, currentUser);
+        		break;
+        	case "/save": // should be called when you go to save an edit
+        		System.out.println("Enter edit page");
+        		quoteEditer(request,response, currentUser);
         		break;
         	case "/logout":
         		logout(request,response);
@@ -115,10 +122,51 @@ public class ControlServlet extends HttpServlet {
 			request.getRequestDispatcher("activitypage.jsp").forward(request, response);
 	    } 
 	    private void ownerPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
-	    	System.out.println("owner view");
-			request.setAttribute("listUser", userDAO.getAllUserQuotes());
-	    	request.getRequestDispatcher("onwerView.jsp").forward(request, response);
+	    	System.out.println("owner view");   	
+	    	request.setAttribute("listUser", userDAO.getAllUserQuotes());
+	    	request.getRequestDispatcher("ownerView.jsp").forward(request, response);
+	    	
+	    	String client = request.getParameter("client"); // possible use have owner input email of client to edit
+	    	
+	    	// these next lines are what is planned to take you to the page to edit the quotes
+	    	// rn they console output is: edit quote *nextline* Cannot forward after response has been committed
+	    	session = request.getSession(); 
+			session.setAttribute("username", client);
+			quoteEditer(request, response, client);
 	    }
+	    private void quoteEditer(HttpServletRequest request, HttpServletResponse response, String userName) throws ServletException, IOException, SQLException{
+	    	//Need to split function to: go to edit page and Save edits
+	    	System.out.println("edit quote");   	
+	    	//request.setAttribute("client", userDAO.getUser(userName));
+	    	request.getRequestDispatcher("editPage.jsp").forward(request, response);
+	    	
+	    	
+	    	String quote_price = request.getParameter("quote_price"); 
+	    	String quote_time = request.getParameter("quote_time");
+	    	String quote_note = request.getParameter("quote_note");
+	    	String quote_response = request.getParameter("quote_response");
+	    	String quote_date = request.getParameter("quote_date");
+	    	String work_order_terms = request.getParameter("work_order_terms");
+	    	String work_order_status = request.getParameter("work_order_status");
+	    	String bill_amount = request.getParameter("bill_amount");
+	    	String bill_status = request.getParameter("bill_status");
+	    	
+	    	//client.setQuote_price(quote_price);
+	    	//client.setQuote_time(quote_time);
+	    	//client.setQuote_note(quote_note);
+	    	//client.setQuote_response(quote_response);
+	    	//client.setQuote_date(quote_date);
+	    	//client.setWork_order_terms(work_order_terms);
+	    	//client.setWork_order_status(work_order_status);
+	    	//client.setBill_amount(bill_amount);
+	    	//client.setBill_status(bill_status);
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+	    } // Need to make a userDAO.updateQuote that works the same way as insert
           
       
 	    
