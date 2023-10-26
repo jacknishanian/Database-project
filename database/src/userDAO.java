@@ -109,6 +109,7 @@ public class userDAO
         	String firstName = resultSet.getString("firstName");
         	String lastName = resultSet.getString("lastName");
         	String password = resultSet.getString("password");
+        	String address = resultSet.getString("address");
         	String phone_num = resultSet.getString("phone_num");
         	String card_num = resultSet.getString("card_num");
         	String card_date = resultSet.getString("card_date");
@@ -172,7 +173,7 @@ public class userDAO
         	
         	
              
-            user users = new user(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status, img_1, img_2, img_3);
+            user users = new user(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status, img_1, img_2, img_3);
             listUser.add(users);
         }        
         resultSet.close();
@@ -206,6 +207,7 @@ public class userDAO
         	String email = null;
         	String firstName = null;
         	String lastName = null;
+        	String address = null;
         	String password = null;
         	String phone_num = null;
         	String card_num = null;
@@ -230,7 +232,7 @@ public class userDAO
         	String img_3 = picToImg(tree_pic3);
             
              
-            user users = new user(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status, img_1, img_2, img_3);
+            user users = new user(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status, img_1, img_2, img_3);
             listUser.add(users);
         }        
         resultSet.close();
@@ -248,7 +250,7 @@ public class userDAO
     
     public void insert(user users) throws SQLException {
     	connect_func("root","pass1234");         
-		String sql = "insert into User(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc ,role) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into User(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc ,role) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		String quote = "insert into Quotes(id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
 		preparedStatement2 = (PreparedStatement) connect.prepareStatement(quote);
@@ -257,11 +259,12 @@ public class userDAO
 		preparedStatement.setString(2, users.getFirstName());
 		preparedStatement.setString(3, users.getLastName());
 		preparedStatement.setString(4, users.getPassword());
-		preparedStatement.setString(5, users.getPhone_num());
-		preparedStatement.setString(6, users.getCard_num());
-		preparedStatement.setString(7, users.getCard_date());
-		preparedStatement.setString(8, users.getCard_cvc());
-		preparedStatement.setString(9, users.getRole());
+		preparedStatement.setString(5, users.getAddress());
+		preparedStatement.setString(6, users.getPhone_num());
+		preparedStatement.setString(7, users.getCard_num());
+		preparedStatement.setString(8, users.getCard_date());
+		preparedStatement.setString(9, users.getCard_cvc());
+		preparedStatement.setString(10, users.getRole());
 		preparedStatement.executeUpdate();
         preparedStatement.close();
 		
@@ -301,7 +304,7 @@ public class userDAO
     }
      
     public boolean update(user users) throws SQLException {
-    	String quote = "insert into Quotes(id, quotes_content, quotes_response, quotes_status, work_order_content, work_order_status, bill_of_work_content, bill_of_work_status,) values (?, ?, ?, ?, ?, ?, ?, ?)";
+    	String quote = "insert into Quotes(id, quotes_content, quotes_response, quotes_status, work_order_content, work_order_status, bill_of_work_content, bill_of_work_status,) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String sql = "update User set firstName=?, lastName =?,password = ?, card_num=?, card_date=?, card_cvc=?, role=? where email = ?";
         connect_func();
         
@@ -312,24 +315,26 @@ public class userDAO
         preparedStatement.setString(2, users.getFirstName());
         preparedStatement.setString(3, users.getLastName());
         preparedStatement.setString(4, users.getPassword());
-        preparedStatement.setString(5, users.getPhone_num());
-        preparedStatement.setString(6, users.getCard_num());
-        preparedStatement.setString(7, users.getCard_date());
-        preparedStatement.setString(8, users.getCard_cvc());
-        preparedStatement.setString(9, users.getRole());
-        preparedStatement.setString(10, users.getId());
-        preparedStatement.setBlob(11, users.getTree_pic1());
-        preparedStatement.setBlob(12, users.getTree_pic2());
-        preparedStatement.setBlob(13, users.getTree_pic3());
-        preparedStatement.setString(14, users.getQuote_price());
-        preparedStatement.setString(15, users.getQuote_time());
-        preparedStatement.setString(16, users.getQuote_note());
-        preparedStatement.setString(17, users.getQuote_response());
-        preparedStatement.setString(18, users.getQuote_date());
-        preparedStatement.setString(19, users.getWork_order_terms());
-        preparedStatement.setString(20, users.getWork_order_status());
-        preparedStatement.setString(21, users.getBill_amount());
-        preparedStatement.setString(22, users.getBill_status());
+        preparedStatement.setString(5, users.getAddress());
+        preparedStatement.setString(6, users.getPhone_num());
+        preparedStatement.setString(7, users.getCard_num());
+        preparedStatement.setString(8, users.getCard_date());
+        preparedStatement.setString(9, users.getCard_cvc());
+        preparedStatement.setString(10, users.getRole());
+        
+        preparedStatement.setString(1, users.getId());
+        preparedStatement.setBlob(2, users.getTree_pic1());
+        preparedStatement.setBlob(3, users.getTree_pic2());
+        preparedStatement.setBlob(4, users.getTree_pic3());
+        preparedStatement.setString(5, users.getQuote_price());
+        preparedStatement.setString(6, users.getQuote_time());
+        preparedStatement.setString(7, users.getQuote_note());
+        preparedStatement.setString(8, users.getQuote_response());
+        preparedStatement.setString(9, users.getQuote_date());
+        preparedStatement.setString(10, users.getWork_order_terms());
+        preparedStatement.setString(11, users.getWork_order_status());
+        preparedStatement.setString(12, users.getBill_amount());
+        preparedStatement.setString(13, users.getBill_status());
 
          
         boolean rowUpdated = preparedStatement.executeUpdate() > 0;
@@ -353,6 +358,7 @@ public class userDAO
         	String firstName = resultSet.getString("firstName");
         	String lastName = resultSet.getString("lastName");
         	String password = resultSet.getString("password");
+        	String address = resultSet.getString("address");
         	String phone_num = resultSet.getString("phone_num");
         	String card_num = resultSet.getString("card_num");
         	String card_date = resultSet.getString("card_date");
@@ -378,7 +384,7 @@ public class userDAO
             
 
             
-            user = new user(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status, img_1, img_2, img_3);
+            user = new user(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status, img_1, img_2, img_3);
         } 
          
         resultSet.close();
@@ -393,6 +399,23 @@ public class userDAO
     	connect_func();
     	preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
         preparedStatement.setString(1, email);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        
+        System.out.println(checks);	
+        
+        if (resultSet.next()) {
+        	checks = true;
+        }
+        
+        System.out.println(checks);
+    	return checks;
+    }
+    public boolean checkAddress(String address) throws SQLException {
+    	boolean checks = false;
+    	String sql = "SELECT * FROM User WHERE address = ?";
+    	connect_func();
+    	preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
+        preparedStatement.setString(1, address);
         ResultSet resultSet = preparedStatement.executeQuery();
         
         System.out.println(checks);	
@@ -460,32 +483,33 @@ public class userDAO
         		//"set secure_file_priv = '';",
 
         		("CREATE TABLE if not exists User( " +
-        		    "email VARCHAR(50) NOT NULL, " +
-        		    "firstName VARCHAR(10) NOT NULL, " +
-        		    "lastName VARCHAR(10) NOT NULL, " +
-        		    "password VARCHAR(20) NOT NULL, " +
-        		    "phone_num VARCHAR(14), " +
-        		    "card_num VARCHAR(20), " +
-        		    "card_date VARCHAR(5), " +
-        		    "card_cvc VARCHAR(3), " +
-        		    "role VARCHAR(10), " +
-        		    "PRIMARY KEY (email) "+"); "),
+        		"email VARCHAR(50) NOT NULL, " +
+        		"firstName VARCHAR(10) NOT NULL, " +
+        		"lastName VARCHAR(10) NOT NULL, " +
+        		"password VARCHAR(20) NOT NULL, " +
+        		"address VARCHAR(50) NOT NULL," +
+        		"phone_num VARCHAR(14)," +
+        		"card_num VARCHAR(20)," +
+        		"card_date VARCHAR(5)," +
+        		"card_cvc VARCHAR(3)," +
+        		"role VARCHAR(10)," +
+        		"PRIMARY KEY (email) " +"); "),
         		    
         		    
-        		    ("CREATE TABLE if not exists Quotes( " +
-        		    "id VARCHAR(50) NOT NULL, " +
-					"tree_pic1 LONGBLOB, " +
-					"tree_pic2 LONGBLOB, " +
-					"tree_pic3 LONGBLOB, " +
-        		    "quote_price VARCHAR(50), " +
-        		    "quote_time VARCHAR(50), " +
-        			"quote_note VARCHAR(50), " +
-        		    "quote_response VARCHAR(10), " +
-        		    "quote_date VARCHAR(8), " +
-        		    "work_order_terms VARCHAR(50), " +
-        		    "work_order_status VARCHAR(15), " +
-        		    "bill_of_work_content VARCHAR(50), " +
-        		    "bill_of_work_status VARCHAR(15)" + ");")
+        		("CREATE TABLE if not exists Quotes( " +
+        		"id VARCHAR(50) NOT NULL," +
+        		"tree_pic1 LONGBLOB," +
+        		"tree_pic2 LONGBLOB," +
+        		"tree_pic3 LONGBLOB," +
+        		"quote_price VARCHAR(50)," +
+        		"quote_time VARCHAR(50)," +
+        		"quote_note VARCHAR(50)," +
+        		"quote_response VARCHAR(10)," +
+        		"quote_date VARCHAR(8)," +
+        		"work_order_terms VARCHAR(50)," +
+        		"work_order_status VARCHAR(15)," +
+        		"bill_amount VARCHAR(50)," +
+        		"bill_status VARCHAR(15)" + ");")
         };
 
         String[] TUPLES = {("insert into Quotes(id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status) " +
@@ -493,11 +517,18 @@ public class userDAO
         		    "('lJones@email.com', LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic.jpg'), LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic2.jpg'), LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic3.jpg'), '1200', '2 days', 'no note', 'Approved', '10/18/23', 'terms of work', 'uncompleted', '1200', 'unpaied');")
         		    };
 
-        String[] TUPLES2 = {("insert into User(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc, role)" +
+        String[] TUPLES2 = {("insert into User(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role)" +
         		    "values" +
-        		    "('root', 'default', 'default','pass1234','(000)-000-0000', '0000-0000-0000-0000', '00/00', '000', 'admin')," +
-        			"('dSmith@email.com', 'David', 'Smith','smith1234', '(111)-222-3333', '0000-0000-0000-0000', '00/00', '000', 'owner')," +
-        		    "('lJones@email.com', 'Luke', 'Jones','jones1234', '(111)-222-3333', '1234-5555-25607-5403', '10/29', '123', 'customer');")
+        		    "('root', 'default', 'default','pass1234', '1234 whatever street, detroit, MI',  '(000)-000-0000', '0000-0000-0000-0000', '00/00', '000', 'admin'), " +
+        			"('dSmith@email.com', 'David', 'Smith','smith1234', '1234 other street, detroit, MI', '(111)-222-3333', '0000-0000-0000-0000', '00/00', '000', 'owner'), " +
+        		    "('lJones@email.com', 'Luke', 'Jones','jones1234', '1234 whatever Road, detroit, TX', '(111)-222-3333', '1234-5555-25607-5403', '10/29', '123', 'customer'), " +
+        		    "('nWayne@email.com', 'Nate', 'Wayne','wayne1234', '1234 whatever street, detroit, MI', '(000)-000-0000', '0000-0000-0000-0000', '00/00', '000', 'customer'), " +
+        			"('mJones@email.com', 'Matt', 'Jones','jones1234', '1235 other street, detroit, MI', '(111)-222-3333', '0000-0000-0000-0000', '00/00', '000', 'customer'), " +
+        		    "('eName@email.com', 'Even', 'Name','name1234', '1235 whatever Road, detroit, TX', '(111)-222-3333', '1234-5555-25607-5403', '10/29', '123', 'customer'), " +
+        		    "('sSmith@email.com', 'Sean', 'Smith','smith1234', '1235 whatever street, detroit, MI', '(000)-000-0000', '0000-0000-0000-0000', '00/00', '000', 'customer'), " +
+        			"('oHanks@email.com', 'Owen', 'Hanks','hanks1234', '1236 other street, detroit, MI', '(111)-222-3333', '0000-0000-0000-0000', '00/00', '000', 'customer'), " +
+        		    "('mSams@email.com', 'Mick', 'Sams','sams1234', '1236 whatever Road, detroit, TX', '(111)-222-3333', '1234-5555-25607-5403', '10/29', '123', 'customer'), " +
+        		    "('rDavis@email.com', 'Randy', 'Davis','davis1234', '1236 whatever street, detroit, MI', '(000)-000-0000', '0000-0000-0000-0000', '00/00', '000', 'customer'); ")
         		    };
         
         //for loop to put these in database

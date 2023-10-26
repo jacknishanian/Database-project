@@ -6,6 +6,7 @@ public class user
 		protected String firstName;  
 		protected String lastName;   
 		protected String password;  
+		protected String address;
 		protected String phone_num; 
 		protected String card_num; 
 		protected String card_date; 
@@ -38,19 +39,20 @@ public class user
 	        this.email = email;
 	    }
 	    
-	    public user(String email, String firstName, String lastName, String password, String phone_num, String card_num, String card_date, String card_cvc, String role, String id, Blob tree_pic1, Blob tree_pic2, Blob tree_pic3, String quote_price, String quote_time, String quote_note, String quote_response, String quote_date, String work_order_terms, String work_order_status, String bill_amount, String bill_status, String img_1, String img_2, String img_3)
+	    public user(String email, String firstName, String lastName, String password, String address, String phone_num, String card_num, String card_date, String card_cvc, String role, String id, Blob tree_pic1, Blob tree_pic2, Blob tree_pic3, String quote_price, String quote_time, String quote_note, String quote_response, String quote_date, String work_order_terms, String work_order_status, String bill_amount, String bill_status, String img_1, String img_2, String img_3)
 	    {
-	    	this(firstName, lastName, password, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status, img_1, img_2, img_3);
+	    	this(firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status, img_1, img_2, img_3);
 	    	this.email = email;
 	    }
 	 
 	
-	    public user(String firstName, String lastName, String password, String phone_num, String card_num, String card_date, String card_cvc, String role, String id, Blob tree_pic1, Blob tree_pic2, Blob tree_pic3, String quote_price, String quote_time, String quote_note, String quote_response, String quote_date, String work_order_terms, String work_order_status, String bill_amount, String bill_status, String img_1, String img_2, String img_3) 
+	    public user(String firstName, String lastName, String password, String address, String phone_num, String card_num, String card_date, String card_cvc, String role, String id, Blob tree_pic1, Blob tree_pic2, Blob tree_pic3, String quote_price, String quote_time, String quote_note, String quote_response, String quote_date, String work_order_terms, String work_order_status, String bill_amount, String bill_status, String img_1, String img_2, String img_3) 
 	    {
 	    	  
 	    	this.firstName = firstName;  
 	    	this.lastName = lastName;   
 	    	this.password = password;  
+	    	this.address = address;
 	    	this.phone_num = phone_num; 
 	    	this.card_num = card_num; 
 	    	this.card_date = card_date; 
@@ -89,6 +91,9 @@ public class user
 	    }
 	    public void setPassword(String password) {
 	        this.password = password;
+	    }
+	    public void setAddress(String address) {
+	    	this.address = address;
 	    }
 	    public void setPhone_num(String phone_num) {
 	        this.phone_num = phone_num;
@@ -165,6 +170,9 @@ public class user
 	    }
 	    public String getPassword() {
 	        return password;
+	    }
+	    public String getAddress() {
+	    	return address;
 	    }
 	    public String getPhone_num() {
 	        return phone_num;

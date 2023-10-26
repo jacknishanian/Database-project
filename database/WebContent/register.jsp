@@ -43,6 +43,12 @@
 				
 				</tr>
 				<tr>
+					<th>address: </th>
+					<td align="center" colspan="3">
+						<input type="text" name="address" size="45"  value="1234 st name, city, state" onfocus="this.value=''">
+					</td>
+				</tr>
+				<tr>
 					<th>Phone Number: </th>
 					<td align="center" colspan="3">
 						<input type="text" name="phone_num" size="45"  value="(xxx)-xxx-xxxx" onfocus="this.value=''">
