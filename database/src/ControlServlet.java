@@ -172,6 +172,7 @@ public class ControlServlet extends HttpServlet {
 	    
 	    
 	    protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+	    	 System.out.println("in the login function");
 	    	 String email = request.getParameter("email");
 	    	 String password = request.getParameter("password");
 	    	 
@@ -194,6 +195,7 @@ public class ControlServlet extends HttpServlet {
 				 System.out.println("Login Successful! Redirecting");
 				 session = request.getSession();
 				 userPage(request, response, email);
+				 //
 				 //request.getRequestDispatcher("activitypage.jsp").forward(request, response);
 			 			 			 			 
 	    	 }
@@ -209,6 +211,7 @@ public class ControlServlet extends HttpServlet {
 	    	String lastName = request.getParameter("lastName");   
 	    	String password = request.getParameter("password");  
 	    	String confirm = request.getParameter("confirmation");
+	    	String address = request.getParameter("address");
 	    	String phone_num = request.getParameter("phone_num"); 
 	    	String card_num = request.getParameter("card_num"); 
 	    	String card_date = request.getParameter("card_date"); 
@@ -220,7 +223,6 @@ public class ControlServlet extends HttpServlet {
 	    	//Blob tree_pic2 = toBlob(request.getPart("tree_pic2"));
 	    	//Blob tree_pic3 = toBlob(request.getPart("tree_pic3"));
 	    	System.out.println("made it here");
-	    	System.out.println(toBlob(request.getPart("tree_pic1")));
 	    	
 	    	//Blob tree_pic1 = toBlob(request.getParameter("tree_pic1"));
 	    	//Blob tree_pic2 = toBlob(request.getParameter("tree_pic2"));
@@ -251,27 +253,33 @@ public class ControlServlet extends HttpServlet {
 	   	 	String img_2 = null;
 	   	 	String img_3 = null;
 	   	 	
-	   	 	
-	   	 	if (password.equals(confirm)) {
-	   	 		if (!userDAO.checkEmail(email)) {
-		   	 		System.out.println("Registration Successful! Added to database");
-		   	 		
-		   	 		
-		            user users = new user(email, firstName, lastName, password, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status, img_1, img_2, img_3);
-		            System.out.println("made it here2");
-		            userDAO.insert(users);
-		   	 		response.sendRedirect("login.jsp");
-	   	 		}
-		   	 	else {
-		   	 		System.out.println("Username taken, please enter new username");
-		    		 request.setAttribute("errorOne","Registration failed: Username taken, please enter a new username.");
-		    		 request.getRequestDispatcher("register.jsp").forward(request, response);
-		   	 	}
+	   	 	if (userDAO.checkAddress(address)) {
+	   	 		System.out.println("Address taken, please enter new address");
+	 			request.setAttribute("errorOne","Registration failed: Address taken, please enter a new address.");
+	 			request.getRequestDispatcher("register.jsp").forward(request, response);
 	   	 	}
 	   	 	else {
-	   	 		System.out.println("Password and Password Confirmation do not match");
-	   		 request.setAttribute("errorTwo","Registration failed: Password and Password Confirmation do not match.");
-	   		 request.getRequestDispatcher("register.jsp").forward(request, response);
+		   	 	if (password.equals(confirm)) {
+		   	 		if (!userDAO.checkEmail(email)) {
+			   	 		System.out.println("Registration Successful! Added to database");
+			   	 		
+			   	 		
+			            user users = new user(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status, img_1, img_2, img_3);
+			            System.out.println("made it here2");
+			            userDAO.insert(users);
+			   	 		response.sendRedirect("login.jsp");
+		   	 		}
+			   	 	else {
+			   	 		System.out.println("Username taken, please enter new username");
+			    		request.setAttribute("errorOne","Registration failed: Username taken, please enter a new username.");
+			    		request.getRequestDispatcher("register.jsp").forward(request, response);
+			   	 	}
+		   	 	}
+		   	 	else {
+		   	 		System.out.println("Password and Password Confirmation do not match");
+		   		 request.setAttribute("errorTwo","Registration failed: Password and Password Confirmation do not match.");
+		   		 request.getRequestDispatcher("register.jsp").forward(request, response);
+		   	 	}
 	   	 	}
 	    }    
 
