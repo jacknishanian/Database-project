@@ -19,41 +19,43 @@
             <table border="1" cellpadding="6">
             <caption><h2>Quote Info</h2></caption>
             <tr>
-            	<th>Quote_price</th>
-            	<th>Quote_time</th>
-				<th>Quote_note</th>
-				<th>Quote_response</th>
-				<th>Quote_date</th>
+            	<th>Bill Nnfo</th>
+            	<th>Bill Response Date</th>
+				<th>Bill Amount Paid</th>
+				<th>Payment date</th>
+				<th>Dispute Note</th>
+				<th>Dispute Date</th>
+				<th>Terms</th>
+				<th>Order Of Work Status</th>
+				<th>Quote Note</th>
+				<th>Quote Status</th>
+				
 				
 				<th>Tree_pic1</th>
 				<th>Tree_pic2</th>
 				<th>Tree_pic3</th>
 
-				<th>Work_order_terms</th>
-				<th>Work_order_status</th>
-				
-				<th>Bill_amount</th>
-				<th>Bill_status</th>
             </tr>
             
 
             <tr style="text-align:center">
-            		<td><c:out value="${'$'}" /> <c:out value="${user.quote_price}"/></td>
-            		<td><c:out value="${user.quote_time}" /></td>
-                    <td><c:out value="${user.quote_note}"/></td>
-                    <td><c:out value="${user.quote_response}" /></td>
-                    <td><c:out value="${user.quote_date}" /></td>
+                    <td><c:out value="${user.bill_response_note}" /></td>
+                    <td><c:out value="${user.bill_response_date}"/></td>
+                    <td><c:out value="${'$'}" /> <c:out value="${user.amount_paid}" /></td>
+                    <td><c:out value="${user.payment_date}"/></td>
+                    <td><c:out value="${user.dispute_note}" /></td>
+                    <td><c:out value="${user.dispute_date}"/></td>
+                    <td><c:out value="${user.terms_agreed}" /></td>
+                    <td><c:out value="${user.oow_status}"/></td>
+                    <td><c:out value="${user.quote_response_note}" /></td>
+                    <td><c:out value="${user.quote_response_status}"/></td>
                     
                     <td><img src="data:image/jpg;base64, ${user.img_1}" width="200" height="200"></td>
                     <td><img src="data:image/jpg;base64, ${user.img_2}" width="200" height="200"></td>
                     <td><img src="data:image/jpg;base64, ${user.img_3}" width="200" height="200"></td>
-                    
-                    <td><c:out value="${user.work_order_terms}" /></td>
-                    <td><c:out value="${user.work_order_status}"/></td>
-                    
-                    <td><c:out value="${'$'}" /> <c:out value="${user.bill_amount}" /></td>
-                    <td><c:out value="${user.bill_status}" /></td>
 
+
+			</tr>
             
         </table>
             

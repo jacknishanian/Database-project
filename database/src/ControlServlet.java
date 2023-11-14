@@ -219,32 +219,38 @@ public class ControlServlet extends HttpServlet {
 	    	String role = "customer"; 
 	    	
 	    	
-	    	//Blob tree_pic1 = toBlob(request.getPart("tree_pic1"));
-	    	//Blob tree_pic2 = toBlob(request.getPart("tree_pic2"));
-	    	//Blob tree_pic3 = toBlob(request.getPart("tree_pic3"));
-	    	System.out.println("made it here");
+	    	String treeInfo_id = request.getParameter("email");
+	    	String payment_id = request.getParameter("email");
+	    	String billResponse_id = request.getParameter("email");
+	    	String disputes_id = request.getParameter("email");
+	    	String orderOfWork_id = request.getParameter("email");
+	    	String bill_id = request.getParameter("email");
+	    	String requestQuote_id = request.getParameter("email");
+	    	String quoteResponse_id = request.getParameter("email");
 	    	
-	    	//Blob tree_pic1 = toBlob(request.getParameter("tree_pic1"));
-	    	//Blob tree_pic2 = toBlob(request.getParameter("tree_pic2"));
-	    	//Blob tree_pic3 = toBlob(request.getParameter("tree_pic3"));
-	    	
-	    	//System.out.println(tree_pic1);
-
-	    	
-	    	String id = request.getParameter("email"); 
 	    	// make defaults
-	    	String quote_price = "N/A"; 
-	    	String quote_time = "N/A"; 
-	    	String quote_note = "N/A"; 
-	    	String quote_response = "N/A"; 
-	    	String quote_date = "N/A"; 
-	    	String work_order_terms = "N/A"; 
-	    	String work_order_status = "N/A"; 
-	    	String bill_amount = "N/A"; 
-	    	String bill_status = "N/A"; 
+	    	String bill_response_note = "N/A";
+	    	String bill_response_date = "N/A";
+	    	String amount_paid = "N/A";
+	    	String payment_date = "N/A";
+	    	String dispute_note = "N/A";
+	    	String dispute_date = "N/A";
+	    	String terms_agreed = "N/A";
+	    	String oow_status = "N/A";
+	    	String amount_due = "N/A";
+	    	String bill_status = "N/A";
+	    	String bill_note = "N/A";
+	    	String request_note = "N/A";
+	    	String request_status = "N/A";
+	    	String quote_response_note = "N/A";
+	    	String quote_response_status = "N/A";
 	
 	   	 	//end defaults
 	    	
+	    	String size = request.getParameter("tree_size");
+	    	String height = request.getParameter("tree_height");
+	    	String location = request.getParameter("tree_location");
+	    	String house_dist = request.getParameter("house_dist");
 	   	 	Blob tree_pic1 = toBlob(request.getPart("tree_pic1"));
 	   	 	Blob tree_pic2 = toBlob(request.getPart("tree_pic2"));
 	    	Blob tree_pic3 = toBlob(request.getPart("tree_pic3"));
@@ -264,7 +270,7 @@ public class ControlServlet extends HttpServlet {
 			   	 		System.out.println("Registration Successful! Added to database");
 			   	 		
 			   	 		
-			            user users = new user(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status, img_1, img_2, img_3);
+			            user users = new user(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, tree_pic1, tree_pic2, tree_pic3, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status, treeInfo_id, payment_id, billResponse_id, disputes_id, orderOfWork_id, bill_id, requestQuote_id, quoteResponse_id, img_1, img_2, img_3);
 			            System.out.println("made it here2");
 			            userDAO.insert(users);
 			   	 		response.sendRedirect("login.jsp");

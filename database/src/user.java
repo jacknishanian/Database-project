@@ -11,23 +11,40 @@ public class user
 		protected String card_num; 
 		protected String card_date; 
 		protected String card_cvc; 
-		protected String role; 
-		protected String id; 
+		protected String role;
+		protected String size;
+		protected String height;
+		protected String location;
+		protected String house_dist;
+		protected String bill_response_note;
+		protected String bill_response_date;
+		protected String amount_paid;
+		protected String payment_date;
+		protected String dispute_note;
+		protected String dispute_date;
+		protected String terms_agreed;
+		protected String oow_status;
+		protected String amount_due;
+		protected String bill_status;
+		protected String bill_note;
+		protected String request_note;
+		protected String request_status;
+		protected String quote_response_note;
+		protected String quote_response_status;
 		protected Blob tree_pic1; 
 		protected Blob tree_pic2; 
 		protected Blob tree_pic3; 
-		protected String quote_price; 
-		protected String quote_time; 
-		protected String quote_note; 
-		protected String quote_response; 
-		protected String quote_date; 
-		protected String work_order_terms; 
-		protected String work_order_status; 
-		protected String bill_amount; 
-		protected String bill_status; 
 		protected String img_1;
 		protected String img_2;
 		protected String img_3;
+		protected String treeInfo_id;
+		protected String payment_id;
+		protected String billResponse_id;
+		protected String disputes_id;
+		protected String orderOfWork_id;
+		protected String bill_id;
+		protected String requestQuote_id;
+		protected String quoteResponse_id;
 
 	 
 	    //constructors
@@ -39,14 +56,14 @@ public class user
 	        this.email = email;
 	    }
 	    
-	    public user(String email, String firstName, String lastName, String password, String address, String phone_num, String card_num, String card_date, String card_cvc, String role, String id, Blob tree_pic1, Blob tree_pic2, Blob tree_pic3, String quote_price, String quote_time, String quote_note, String quote_response, String quote_date, String work_order_terms, String work_order_status, String bill_amount, String bill_status, String img_1, String img_2, String img_3)
+	    public user(String email, String firstName, String lastName, String password, String address, String phone_num, String card_num, String card_date, String card_cvc, String role, Blob tree_pic1, Blob tree_pic2, Blob tree_pic3, String size, String height, String location, String house_dist, String bill_response_note, String bill_response_date, String amount_paid, String payment_date, String dispute_note, String dispute_date, String terms_agreed, String oow_status, String amount_due, String bill_status, String bill_note, String request_note, String request_status, String quote_response_note, String quote_response_status, String treeInfo_id, String payment_id, String billResponse_id, String disputes_id, String orderOfWork_id, String bill_id, String requestQuote_id, String quoteResponse_id, String img_1, String img_2, String img_3)
 	    {
-	    	this(firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status, img_1, img_2, img_3);
+	    	this(firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, tree_pic1, tree_pic2, tree_pic3, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status, treeInfo_id, payment_id, billResponse_id, disputes_id, orderOfWork_id, bill_id, requestQuote_id, quoteResponse_id, img_1, img_2, img_3);
 	    	this.email = email;
 	    }
 	 
 	
-	    public user(String firstName, String lastName, String password, String address, String phone_num, String card_num, String card_date, String card_cvc, String role, String id, Blob tree_pic1, Blob tree_pic2, Blob tree_pic3, String quote_price, String quote_time, String quote_note, String quote_response, String quote_date, String work_order_terms, String work_order_status, String bill_amount, String bill_status, String img_1, String img_2, String img_3) 
+	    public user(String firstName, String lastName, String password, String address, String phone_num, String card_num, String card_date, String card_cvc, String role, Blob tree_pic1, Blob tree_pic2, Blob tree_pic3, String size, String height, String location, String house_dist, String bill_response_note, String bill_response_date, String amount_paid, String payment_date, String dispute_note, String dispute_date, String terms_agreed, String oow_status, String amount_due, String bill_status, String bill_note, String request_note, String request_status, String quote_response_note, String quote_response_status, String treeInfo_id, String payment_id, String billResponse_id, String disputes_id, String orderOfWork_id, String bill_id, String requestQuote_id, String quoteResponse_id, String img_1, String img_2, String img_3) 
 	    {
 	    	  
 	    	this.firstName = firstName;  
@@ -58,19 +75,38 @@ public class user
 	    	this.card_date = card_date; 
 	    	this.card_cvc = card_cvc; 
 	    	this.role = role; 
-	    	this.id = id; 
+
 	    	this.tree_pic1 = tree_pic1; 
 	    	this.tree_pic2 = tree_pic2; 
 	    	this.tree_pic3 = tree_pic3; 
-	    	this.quote_price = quote_price; 
-	    	this.quote_time = quote_time; 
-	    	this.quote_note = quote_note; 
-	    	this.quote_response = quote_response; 
-	    	this.quote_date = quote_date; 
-	    	this.work_order_terms = work_order_terms; 
-	    	this.work_order_status = work_order_status; 
-	    	this.bill_amount = bill_amount; 
+	    	this.size = size;
+	    	this.height = height;
+	    	this.location = location;
+	    	this.house_dist = house_dist;
+	    	this.bill_response_note = bill_response_note;
+	    	this.bill_response_date = bill_response_date;
+	    	this.amount_paid = amount_paid;
+	    	this.payment_date = payment_date;
+	    	this.dispute_note = dispute_note;
+	    	this.dispute_date = dispute_date;
+	    	this.terms_agreed = terms_agreed;
+	    	this.oow_status = oow_status;
+	    	this.amount_due = amount_due;
+	    	this.bill_status = bill_status;
+	    	this.bill_note = bill_note;
+	    	this.request_note = request_note;
+	    	this.request_status = request_status;
+	    	this.quote_response_note = quote_response_note;
+	    	this.quote_response_status = quote_response_status;
 	    	this.bill_status = bill_status; 
+	    	this.treeInfo_id = treeInfo_id;
+	    	this.payment_id = payment_id;
+	    	this.billResponse_id = billResponse_id;
+	    	this.disputes_id = disputes_id;
+	    	this.orderOfWork_id = orderOfWork_id;
+	    	this.bill_id = bill_id;
+	    	this.requestQuote_id = requestQuote_id;
+	    	this.quoteResponse_id = quoteResponse_id;
 	    	this.img_1 = img_1;
 	    	this.img_2 = img_2;
 	    	this.img_3 = img_3;
@@ -110,9 +146,6 @@ public class user
 	    public void setRole(String role) {
 	        this.role = role;
 	    }
-	    public void setId(String id) {
-	        this.id = id;
-	    }
 	    public void setTree_pic1(Blob tree_pic1) {
 	        this.tree_pic1 = tree_pic1;
 	    }
@@ -122,33 +155,6 @@ public class user
 	    public void setTree_pic3(Blob tree_pic3) {
 	        this.tree_pic3 = tree_pic3;
 	    }
-	    public void setQuote_price(String quote_price) {
-	        this.quote_price = quote_price;
-	    }
-	    public void setQuote_time(String quote_time) {
-	        this.quote_time = quote_time;
-	    }
-	    public void setQuote_note(String quote_note) {
-	        this.quote_note = quote_note;
-	    }
-	    public void setQuote_response(String quote_response) {
-	        this.quote_response = quote_response;
-	    }
-	    public void setQuote_date(String quote_date) {
-	        this.quote_date = quote_date;
-	    }
-	    public void setWork_order_terms(String work_order_terms) {
-	        this.work_order_terms = work_order_terms;
-	    }
-	    public void setWork_order_status(String work_order_status) {
-	        this.work_order_status = work_order_status;
-	    }
-	    public void setBill_amount(String bill_amount) {
-	        this.bill_amount = bill_amount;
-	    }
-	    public void setBill_status(String bill_status) {
-	        this.bill_status = bill_status;
-	    }
 	    public void setImg_1(String img_1) {
 	        this.img_1 = img_1;
 	    }
@@ -157,7 +163,90 @@ public class user
 	    }
 	    public void setImg_3(String img_3) {
 	        this.img_3 = img_3;
+	    }    
+	    public void setSize(String size) {
+	        this.size = size;
 	    }
+	    public void setHeight(String height) {
+	        this.height = height;
+	    }
+	    public void setLocation(String location) {
+	        this.location = location;
+	    }
+	    public void setHouse_dist(String house_dist) {
+	        this.house_dist = house_dist;
+	    }
+	    public void setBill_response_note(String bill_response_note) {
+	        this.bill_response_note = bill_response_note;
+	    }
+	    public void setBill_response_date(String bill_response_date) {
+	        this.bill_response_date = bill_response_date;
+	    }
+	    public void setAmount_paid(String amount_paid) {
+	        this.amount_paid = amount_paid;
+	    }
+	    public void setPayment_date(String payment_date) {
+	        this.payment_date = payment_date;
+	    }
+	    public void setDispute_note(String dispute_note) {
+	        this.dispute_note = dispute_note;
+	    }
+	    public void setDispute_date(String dispute_date) {
+	        this.dispute_date = dispute_date;
+	    }
+	    public void setTerms_agreed(String terms_agreed) {
+	        this.terms_agreed = terms_agreed;
+	    }
+	    public void setOow_status(String oow_status) {
+	        this.oow_status = oow_status;
+	    }
+	    public void setAmount_due(String amount_due) {
+	        this.amount_due = amount_due;
+	    }
+	    public void setBill_status(String bill_status) {
+	        this.bill_status = bill_status;
+	    }
+	    public void setBill_note(String bill_note) {
+	        this.bill_note = bill_note;
+	    }
+	    public void setRequest_note(String request_note) {
+	        this.request_note = request_note;
+	    }
+	    public void setRequest_status(String request_status) {
+	        this.request_status = request_status;
+	    }
+	    public void setQuote_response_note(String quote_response_note) {
+	        this.quote_response_note = quote_response_note;
+	    }
+	    public void setQuote_response_status(String quote_response_status) {
+	        this.quote_response_status = quote_response_status;
+	    }
+	    public void setTreeInfo_id(String treeInfo_id) {
+	        this.treeInfo_id = treeInfo_id;
+	    }
+	    public void setPayment_id(String payment_id) {
+	        this.payment_id = payment_id;
+	    }
+	    public void setBillResponse_id(String billResponse_id) {
+	        this.billResponse_id = billResponse_id;
+	    }
+	    public void setDisputes_id(String disputes_id) {
+	        this.disputes_id = disputes_id;
+	    }
+	    public void setOrderOfWork_id(String orderOfWork_id) {
+	        this.orderOfWork_id = orderOfWork_id;
+	    }
+	    public void setBill_id(String bill_id) {
+	        this.bill_id = bill_id;
+	    }
+	    public void setRequestQuote_id(String requestQuote_id) {
+	        this.requestQuote_id = requestQuote_id;
+	    }
+	    public void setQuoteResponse_id(String quoteResponse_id) {
+	        this.quoteResponse_id = quoteResponse_id;
+	    }
+	    
+	    
 	    //getters
 	    public String getEmail() {
 	        return email;
@@ -189,9 +278,6 @@ public class user
 	    public String getRole() {
 	        return role;
 	    }
-	    public String getId() {
-	        return id;
-	    }
 	    public Blob getTree_pic1() {
 	        return tree_pic1;
 	    }
@@ -200,33 +286,6 @@ public class user
 	    }
 	    public Blob getTree_pic3() {
 	        return tree_pic3;
-	    }
-	    public String getQuote_price() {
-	        return quote_price;
-	    }
-	    public String getQuote_time() {
-	        return quote_time;
-	    }
-	    public String getQuote_note() {
-	        return quote_note;
-	    }
-	    public String getQuote_response() {
-	        return quote_response;
-	    }
-	    public String getQuote_date() {
-	        return quote_date;
-	    }
-	    public String getWork_order_terms() {
-	        return work_order_terms;
-	    }
-	    public String getWork_order_status() {
-	        return work_order_status;
-	    }
-	    public String getBill_amount() {
-	        return bill_amount;
-	    }
-	    public String getBill_status() {
-	        return bill_status;
 	    }
 	    public String getImg_1() {
 	        return img_1;
@@ -237,4 +296,87 @@ public class user
 	    public String getImg_3() {
 	        return img_3;
 	    }
+	    public String getSize() {
+	        return size;
+	    }
+	    public String getHeight() {
+	        return height;
+	    }
+	    public String getLocation() {
+	        return location;
+	    }
+	    public String getHouse_dist() {
+	        return house_dist;
+	    }
+	    public String getBill_response_note() {
+	        return bill_response_note;
+	    }
+	    public String getBill_response_date() {
+	        return bill_response_date;
+	    }
+	    public String getAmount_paid() {
+	        return amount_paid;
+	    }
+	    public String getPayment_date() {
+	        return payment_date;
+	    }
+	    public String getDispute_note() {
+	        return dispute_note;
+	    }
+	    public String getDispute_date() {
+	        return dispute_date;
+	    }
+	    public String getTerms_agreed() {
+	        return terms_agreed;
+	    }
+	    public String getOow_status() {
+	        return oow_status;
+	    }
+	    public String getAmount_due() {
+	        return amount_due;
+	    }
+	    public String getBill_status() {
+	        return bill_status;
+	    }
+	    public String getBill_note() {
+	        return bill_note;
+	    }
+	    public String getRequest_note() {
+	        return request_note;
+	    }
+	    public String getRequest_status() {
+	        return request_status;
+	    }
+	    public String getQuote_response_note() {
+	        return quote_response_note;
+	    }
+	    public String getQuote_response_status() {
+	        return quote_response_status;
+	    }
+	    public String getTreeInfo_id() {
+	        return treeInfo_id;
+	    }
+	    public String getPayment_id() {
+	        return payment_id;
+	    }
+	    public String getBillResponse_id() {
+	        return billResponse_id;
+	    }
+	    public String getDisputes_id() {
+	        return disputes_id;
+	    }
+	    public String getOrderOfWork_id() {
+	        return orderOfWork_id;
+	    }
+	    public String getBill_id() {
+	        return bill_id;
+	    }
+	    public String getRequestQuote_id() {
+	        return requestQuote_id;
+	    }
+	    public String getQuoteResponse_id() {
+	        return quoteResponse_id;
+	    }
+	    
+	    
 	}

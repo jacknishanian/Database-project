@@ -76,7 +76,30 @@
 				
 				
 				
-				
+				<tr>
+					<th>Tree size: </th>
+					<td align="center" colspan="3">
+						<input type="text" name="size" size="45"  value="xxx" onfocus="this.value=''">
+					</td>
+				</tr>
+				<tr>
+					<th>Tree height: </th>
+					<td align="center" colspan="3">
+						<input type="text" name="height" size="45"  value="xxx" onfocus="this.value=''">
+					</td>
+				</tr>
+				<tr>
+					<th>Tree location: </th>
+					<td align="center" colspan="3">
+						<input type="text" name="location" size="45"  value="xxx" onfocus="this.value=''">
+					</td>
+				</tr>
+				<tr>
+					<th>Tree distance from house: </th>
+					<td align="center" colspan="3">
+						<input type="text" name="house_dist" size="45"  value="xxx" onfocus="this.value=''">
+					</td>
+				</tr>
 				<tr>
 					<th>Picture 1: </th>
 					<td align="center" colspan="3">
