@@ -25,6 +25,8 @@
 				<th>Quote_response</th>
 				<th>Quote_date</th>
 				
+				<th>OOW Status</th>
+				
 				<th>Tree_pic1</th>
 				<th>Tree_pic2</th>
 				<th>Tree_pic3</th>

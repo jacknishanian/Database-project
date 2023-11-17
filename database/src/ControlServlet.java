@@ -65,6 +65,39 @@ public class ControlServlet extends HttpServlet {
         	case "/register":
         		register(request, response);
         		break;
+        	case "/qRequest":
+        		qRequest(request, response, currentUser);
+        		break;
+        	case "/responsePage1": 
+        		System.out.println("rp1");
+        		responsePage1(request, response);
+        	case "/responsePage2": 
+        		System.out.println("rp2");
+        		responsePage2(request, response);
+        	case "/responsePage3": 
+        		System.out.println("rp3");
+        		responsePage3(request, response);
+        	case "/responsePage4": 
+        		System.out.println("rp4");
+        		responsePage4(request, response);
+        	case "/response1":
+        		System.out.println(currentUser);
+        		response1(request, response);
+        		break;
+        	case "/response2":
+        		response2(request, response);
+        		break;
+        	case "/response3":
+        		response3(request, response);
+        		break;
+        	case "/denyQuote":
+        		System.out.println("no quote");
+        		deniedQ(request, response);
+        		break;
+        	case "/acceptQuote":
+        		System.out.println("yes quote");
+        		acceptedQ(request, response);
+        		break;
         	case "/initialize":
         		userDAO.init();
         		System.out.println("Database successfully initialized!");
@@ -110,7 +143,7 @@ public class ControlServlet extends HttpServlet {
 	     
 	        System.out.println("listPeople finished: 111111111111111111111111111111111111");
 	    }
-	    	        
+	    
 	    private void rootPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
 	    	System.out.println("root view");
 			request.setAttribute("listUser", userDAO.listAllUsers());
@@ -121,11 +154,34 @@ public class ControlServlet extends HttpServlet {
 			request.setAttribute("user", userDAO.getUser(userName));
 			request.getRequestDispatcher("activitypage.jsp").forward(request, response);
 	    } 
+	    private void responsePage1(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException{
+	    	System.out.println("owner response 1");
+			request.setAttribute("user", userDAO.getUser(request.getParameter("userID")));
+			request.getRequestDispatcher("response1.jsp").forward(request, response);
+	    } 
+	    private void responsePage2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException{
+	    	System.out.println("client response 2");
+			request.setAttribute("user", userDAO.getUser(request.getParameter("userID")));
+			request.getRequestDispatcher("response2.jsp").forward(request, response);
+	    } 
+	    private void responsePage3(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException{
+	    	System.out.println("owner response 3");
+			request.setAttribute("user", userDAO.getUser(request.getParameter("userID")));
+			System.out.println("In rsp");
+			request.getRequestDispatcher("response3.jsp").forward(request, response);
+			System.out.println("Past request");
+	    } 
+	    private void responsePage4(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException{
+	    	System.out.println("client response 4");
+			request.setAttribute("user", userDAO.getUser(request.getParameter("userID")));
+			request.getRequestDispatcher("response4.jsp").forward(request, response);
+	    } 
 	    private void ownerPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
 	    	System.out.println("owner view");   	
-	    	request.setAttribute("listUser", userDAO.getAllUserQuotes());
+	    	request.setAttribute("listQuote", userDAO.getAllUserQuotes());
 	    	request.getRequestDispatcher("ownerView.jsp").forward(request, response);
 	    	
+	    /*
 	    	String client = request.getParameter("client"); // possible use have owner input email of client to edit
 	    	
 	    	// these next lines are what is planned to take you to the page to edit the quotes
@@ -133,7 +189,18 @@ public class ControlServlet extends HttpServlet {
 	    	session = request.getSession(); 
 			session.setAttribute("username", client);
 			quoteEditer(request, response, client);
+			
+			*/
 	    }
+	    private void acceptedQ(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException{
+	    	System.out.println("acceptedQ");
+			//userDAO.insertClientResponseFinal(request.getParameter("userID"), request.getParameter("userStatus"), request.getParameter("userNote"));
+	    	userDAO.approveQuote(request.getParameter("userID"));
+	    } 
+	    private void deniedQ(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException{
+	    	System.out.println("denied");
+	    	userDAO.deleteQuote(request.getParameter("userID"));
+	    } 
 	    private void quoteEditer(HttpServletRequest request, HttpServletResponse response, String userName) throws ServletException, IOException, SQLException{
 	    	//Need to split function to: go to edit page and Save edits
 	    	System.out.println("edit quote");   	
@@ -247,13 +314,13 @@ public class ControlServlet extends HttpServlet {
 	
 	   	 	//end defaults
 	    	
-	    	String size = request.getParameter("tree_size");
-	    	String height = request.getParameter("tree_height");
-	    	String location = request.getParameter("tree_location");
-	    	String house_dist = request.getParameter("house_dist");
-	   	 	Blob tree_pic1 = toBlob(request.getPart("tree_pic1"));
-	   	 	Blob tree_pic2 = toBlob(request.getPart("tree_pic2"));
-	    	Blob tree_pic3 = toBlob(request.getPart("tree_pic3"));
+	    	String size = null;
+	    	String height = null;
+	    	String location = null;
+	    	String house_dist = null;
+	   	 	Blob tree_pic1 = null;
+	   	 	Blob tree_pic2 = null;
+	    	Blob tree_pic3 = null;
 	    	
 	   	 	String img_1 = null;
 	   	 	String img_2 = null;
@@ -288,6 +355,96 @@ public class ControlServlet extends HttpServlet {
 		   	 	}
 	   	 	}
 	    }    
+	    
+	    private void qRequest(HttpServletRequest request, HttpServletResponse response, String username) throws ServletException, IOException, SQLException {
+
+	    	String id = username;
+	    	
+	    	
+	    	String size = request.getParameter("tree_size");
+	    	String height = request.getParameter("tree_height");
+	    	String location = request.getParameter("tree_location");
+	    	String house_dist = request.getParameter("house_dist");
+	   	 	Blob tree_pic1 = toBlob(request.getPart("tree_pic1"));
+	   	 	Blob tree_pic2 = toBlob(request.getPart("tree_pic2"));
+	    	Blob tree_pic3 = toBlob(request.getPart("tree_pic3"));
+	   	 	String img_1 = null;
+	   	 	String img_2 = null;
+	   	 	String img_3 = null;
+	    	
+	    	String amount_paid = "N/A";
+	    	String payment_date = "N/A";
+
+	    	String bill_response_note = "N/A";
+	    	String bill_response_date = "N/A";
+
+	    	String dispute_note = "N/A";
+	    	String dispute_date = "N/A";
+
+	    	String terms_agreed = "N/A";
+	    	String oow_status = "N/A";
+
+	    	String amount_due = "N/A";
+	    	String bill_status = "N/A";
+	    	String bill_note = "N/A";
+
+	    	String request_note = "N/A";
+	    	String request_status = "N/A";
+
+	    	String quote_response_note = request.getParameter("request_note");
+	    	String quote_response_status = "Waiting";
+	
+
+	    	quote quotes= new quote(id, size, height, location, house_dist, tree_pic1, tree_pic2, tree_pic3, img_1, img_2, img_3, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
+            System.out.println("made it here");
+            userDAO.insertQuote(quotes);
+
+	   	 	
+	    }
+	    
+	    private void response1(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+
+	    	String id = request.getParameter("userID");
+
+	    	String terms_agreed = request.getParameter("terms_agreed");
+	    	String oow_status = request.getParameter("oow_status");
+	    	String amount_due = request.getParameter("amount_due");
+	    	String bill_status = request.getParameter("bill_status");
+	    	String bill_note = request.getParameter("bill_note");
+	    	String quote_response_note = request.getParameter("quote_response_note");
+	    	String quote_response_status = request.getParameter("quote_response_status");
+	    	
+	    	System.out.println("In resp 1");
+
+            userDAO.insertOwnerResponse1(id, terms_agreed, oow_status, amount_due, bill_status, bill_note, quote_response_note, quote_response_status);
+            //ownerPage(request,response, "");
+	    }
+	    private void response2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+
+	    	String id = request.getParameter("userID");
+
+	    	String bill_response_note = request.getParameter("bill_response_note");
+	    	String bill_response_date = request.getParameter("bill_response_date");
+	    	String dispute_note = request.getParameter("dispute_note");
+	    	String dispute_date = request.getParameter("dispute_date");
+
+
+
+            userDAO.insertClientResponse(id, bill_response_note, bill_response_date, dispute_note, dispute_date);
+            //userPage(request, response, id);
+	    }
+	    private void response3(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+
+	    	String id = request.getParameter("userID");
+
+	    	String payment_date = request.getParameter("payment_date");
+	    	String amount_paid = request.getParameter("amount_paid");
+
+	    	System.out.println("in response3");
+            userDAO.insertOwnerResponseFinal(id, payment_date, amount_paid);
+            System.out.println("End of response3");
+            //ownerPage(request,response, "");
+	    }
 
 		private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	    	currentUser = "";

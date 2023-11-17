@@ -1,5 +1,6 @@
 import java.sql.Blob;
 
+
 public class user 
 {
 		protected String email;  
@@ -120,7 +121,7 @@ public class user
 	        this.email = email;
 	    }
 	    public void setFirstName(String firstName) {
-	        this.firstName = firstName;
+	    	this.firstName = firstName;
 	    }
 	    public void setLastName(String lastName) {
 	        this.lastName = lastName;

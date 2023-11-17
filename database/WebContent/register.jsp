@@ -75,7 +75,7 @@
 				
 				
 				
-				
+				<!-- 
 				<tr>
 					<th>Tree size: </th>
 					<td align="center" colspan="3">
@@ -119,7 +119,7 @@
 					</td>
 				</tr>
 				
-				
+				 -->
 				<tr>
 					<td align="center" colspan="5">
 						<input type="submit" value="Register"/>

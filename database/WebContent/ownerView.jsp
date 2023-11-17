@@ -19,35 +19,57 @@
         <table border="1" cellpadding="6">
             <caption><h2>List of Quotes</h2></caption>
             <tr>
-                <th>Email</th>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Phone Number</th>
+				<th>User id</th>
+				<th>Tree Size</th>
+				<th>Tree Location</th>
+				<th>Distance from house</th>
+				<th>Order Of Work</th>
                 <th>Tree pictures</th>
-                <th>Work Order status</th>
-                <th>Edit Quote</th>
+                <th>Response initial</th>
+                <th>Final response</th>
+
+                
 
                 
             </tr>
-            <c:forEach var="users" items="${listUser}">
+            <c:forEach var="quotes" items="${listQuote}">
                 <tr style="text-align:center">
-                    <td><c:out value="${users.id}" /></td>
-                    <td><c:out value="${users.firstName}" /></td>
-                    <td><c:out value="${users.lastName}" /></td>
-                    <td><c:out value="${users.phone_num}" /></td>
+                	<td><c:out value="${quotes.id}" /></td>
+                	<td><c:out value="${quotes.size}" /></td>
+					<td><c:out value="${quotes.location}" /></td>
+					<td><c:out value="${quotes.house_dist}" /></td>
+					<td><c:out value="${quotes.oow_status}" /></td>
+					
                     <td>
-                    	<img src="data:image/jpg;base64, ${users.img_1}" width="200" height="200">
-                    	<img src="data:image/jpg;base64, ${users.img_2}" width="200" height="200">
-                    	<img src="data:image/jpg;base64, ${users.img_3}" width="200" height="200">
+                    	<img src="data:image/jpg;base64, ${quotes.img_1}" width="200" height="200">
+                    	<img src="data:image/jpg;base64, ${quotes.img_2}" width="200" height="200">
+                    	<img src="data:image/jpg;base64, ${quotes.img_3}" width="200" height="200">
                     </td>
-                    <td><c:out value="${users.work_order_status}" /></td>
-                    <td align="center" colspan="5">
-						<form action = "edit">
-						<!-- Need to find a way to pass users.id via the onClick to redirect to the edit page for that id -->
-							<input type = "submit" value = "Edit" onClick ="currentUser = ${users.id}"/>
+	
+					<td align="center">
+						<form action = "responsePage1">
+							<input type="hidden" name="userID" value="${quotes.id}">
+							<input type="submit" value="Offer Quote"/>
 						</form>
 					</td>
-                    
+
+							
+					<td align="center">
+						<form action = "responsePage3">
+							<input type="hidden" name="userID" value="${quotes.id}">
+							<input type="submit" value="Confirm  Quote"/>
+						</form>
+					</td>
+			
+
+
+					
+			
+					
+			
+
+
+                  
 
             </c:forEach>
         </table>
