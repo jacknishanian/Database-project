@@ -55,7 +55,7 @@ public class userDAO
             } catch (ClassNotFoundException e) {
                 throw new SQLException(e);
             }
-            connect = (Connection) DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/projectdb?allowPublicKeyRetrieval=true&useSSL=false&user=john&password=pass1234");
+            connect = (Connection) DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/projectdb?allowPublicKeyRetrieval=true&useSSL=false&user=dave&password=pass1234");
             System.out.println(connect);
         }
     }
@@ -156,9 +156,7 @@ public class userDAO
         	String quote_response_note;
         	String quote_response_status;
 
-        	Blob tree_pic1;
-        	Blob tree_pic2;
-        	Blob tree_pic3;
+        	
         	String img_1;
         	String img_2;
         	String img_3;
@@ -187,12 +185,7 @@ public class userDAO
         		height = resultSet.getString("height");
         		location = resultSet.getString("location");
         		house_dist = resultSet.getString("house_dist");
-        		tree_pic1 = resultSet.getBlob("tree_pic1");
-            	tree_pic2 = resultSet.getBlob("tree_pic2");
-            	tree_pic3 = resultSet.getBlob("tree_pic3");
-                img_1 = picToImg(tree_pic1);
-                img_2 = picToImg(tree_pic2);
-                img_3 = picToImg(tree_pic3);
+        		
                 treeInfo_id = resultSet.getString("treeInfo_id");
                 payment_id = resultSet.getString("payment_id");
                 billResponse_id = resultSet.getString("billResponse_id");
@@ -225,9 +218,7 @@ public class userDAO
         		quote_response_note = "N/A";
         		quote_response_status = "N/A";
         		
-        		tree_pic1 = null;
-            	tree_pic2 = null;
-            	tree_pic3 = null;
+        		
             	img_1 = null;
             	img_2 = null;
             	img_3 = null;
@@ -244,7 +235,7 @@ public class userDAO
         	
         	
              
-            user users = new user(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, tree_pic1, tree_pic2, tree_pic3, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status, treeInfo_id, payment_id, billResponse_id, disputes_id, orderOfWork_id, bill_id, requestQuote_id, quoteResponse_id, img_1, img_2, img_3);
+            user users = new user(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status, treeInfo_id, payment_id, billResponse_id, disputes_id, orderOfWork_id, bill_id, requestQuote_id, quoteResponse_id);
             listUser.add(users);
         }        
         resultSet.close();
@@ -277,12 +268,7 @@ public class userDAO
         	String location = resultSet.getString("location");
         	String house_dist = resultSet.getString("house_dist");
         	
-        	Blob tree_pic1 = resultSet.getBlob("tree_pic1");
-        	Blob tree_pic2 = resultSet.getBlob("tree_pic2");
-        	Blob tree_pic3 = resultSet.getBlob("tree_pic3");
-        	String img_1 = picToImg(tree_pic1);
-        	String img_2 = picToImg(tree_pic2);
-        	String img_3 = picToImg(tree_pic3);
+        	
 
         	
         	String bill_response_note = null;
@@ -308,7 +294,69 @@ public class userDAO
         	String quote_response_status = null;
             
 
-            quote quotes = new quote(id, size, height, location, house_dist, tree_pic1, tree_pic2, tree_pic3, img_1, img_2, img_3, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
+            quote quotes = new quote(id, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
+            listQuote.add(quotes);
+        }        
+        resultSet.close();
+        disconnect();        
+        return listQuote;
+    }
+    
+    public List<quote> getAllSingleTreeQuotes() throws SQLException, IOException {
+    	List<quote> listQuote = new ArrayList<quote>(); 
+
+    	
+    	
+    	String sql2 = "SELECT * FROM TreeInfo WHERE num_trees='1'";
+
+        connect_func();
+        
+        
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql2);
+
+         
+        while (resultSet.next()) {
+
+        	String id = resultSet.getString("treeInfo_id");
+        	
+        	String size = resultSet.getString("size");
+        	String height = resultSet.getString("height");
+        	String location = resultSet.getString("location");
+        	String house_dist = resultSet.getString("house_dist");
+        	String num_trees = resultSet.getString("num_trees");
+        	
+
+        	
+        	String bill_response_note = null;
+        	String bill_response_date = null;
+        	
+        	String amount_paid = null;
+        	String payment_date = null;
+        	
+        	String dispute_note = null;
+        	String dispute_date = null;
+        	
+        	String terms_agreed = null;
+        	String oow_status = null;
+        	
+        	String amount_due = null;
+        	String bill_status = null;
+        	String bill_note = null;
+        	
+        	String request_note = null;
+        	String request_status = null;
+        	
+        	String quote_response_note = null;
+        	String quote_response_status = null;
+            
+
+        	
+        	
+        	System.out.println("id: " + id);
+        	System.out.println("tree size: " + size);
+        	System.out.println("tree num: " + num_trees);
+            quote quotes = new quote(id, size, height, location, house_dist, num_trees, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
             listQuote.add(quotes);
         }        
         resultSet.close();
@@ -456,9 +504,9 @@ public class userDAO
     public void insert(user users) throws SQLException {
     	connect_func("root","pass1234");         
 		String sql = "insert into User(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc ,role) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		String quote = "insert into Quotes(id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String quote = "insert into Quotes(id, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
-		String treeInfo = "insert into TreeInfo(id, size, height, location, house_dist, tree_pic1, tree_pic2, tree_pic3) values (?, ?, ?)";
+		String treeInfo = "insert into TreeInfo(id, size, height, location, house_dist,) values (?, ?, ?)";
 		String payment = "insert into Payment(id, amount_paid, payment_date) values (?, ?, ?)";
 		String billResponse = "insert into BillResponse(id, bill_response_note, bill_response_date) values (?, ?, ?)";
 		String disputes = "insert into Disputes(id, dispute_note, dispute_date) values (?, ?, ?)";
@@ -503,9 +551,7 @@ public class userDAO
         preparedStatement3.setString(2, users.getHeight());
         preparedStatement3.setString(3, users.getLocation());
         preparedStatement3.setString(4, users.getHouse_dist());
-        preparedStatement3.setBlob(5, users.getTree_pic1());
-        preparedStatement3.setBlob(6, users.getTree_pic2());
-        preparedStatement3.setBlob(7, users.getTree_pic3());
+      
         preparedStatement3.executeUpdate();
         preparedStatement3.close();
         
@@ -550,7 +596,7 @@ public class userDAO
     	connect_func("root","pass1234");         
 		
 		
-		String treeInfo = "insert into TreeInfo(id, size, height, location, house_dist, tree_pic1, tree_pic2, tree_pic3) values (?, ?, ?)";
+		String treeInfo = "insert into TreeInfo(id, size, height, location, house_dist) values (?, ?, ?)";
 		String payment = "insert into Payment(id, amount_paid, payment_date) values (?, ?, ?)";
 		String billResponse = "insert into BillResponse(id, bill_response_note, bill_response_date) values (?, ?, ?)";
 		String disputes = "insert into Disputes(id, dispute_note, dispute_date) values (?, ?, ?)";
@@ -582,9 +628,7 @@ public class userDAO
         preparedStatement3.setString(2, quotes.getHeight());
         preparedStatement3.setString(3, quotes.getLocation());
         preparedStatement3.setString(4, quotes.getHouse_dist());
-        preparedStatement3.setBlob(5, quotes.getTree_pic1());
-        preparedStatement3.setBlob(6, quotes.getTree_pic2());
-        preparedStatement3.setBlob(7, quotes.getTree_pic3());
+        
         preparedStatement3.executeUpdate();
         preparedStatement3.close();
         
@@ -755,7 +799,7 @@ public class userDAO
     	String quote = "insert into Quotes(id, quotes_content, quotes_response, quotes_status, work_order_content, work_order_status, bill_of_work_content, bill_of_work_status,) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String sql = "update User set firstName=?, lastName =?,password = ?, card_num=?, card_date=?, card_cvc=?, role=? where email = ?";
         
-        String treeInfo = "update TreeInfo set id=?, size=?, height=?, location=?, house_dist=?, tree_pic1=?, tree_pic2=?, tree_pic3=?";
+        String treeInfo = "update TreeInfo set id=?, size=?, height=?, location=?, house_dist=?";
         String payment = "update Payment set id=?, amount_paid=?, payment_date=?";
         String billResponse = "update BillResponse set id=?, bill_response_note=?, bill_response_date=?";
         String disputes = "update Disputes set id=?, dispute_note=?, dispute_date=?";
@@ -793,9 +837,7 @@ public class userDAO
         preparedStatement3.setString(2, users.getHeight());
         preparedStatement3.setString(3, users.getLocation());
         preparedStatement3.setString(4, users.getHouse_dist());
-        preparedStatement3.setBlob(5, users.getTree_pic1());
-        preparedStatement3.setBlob(6, users.getTree_pic2());
-        preparedStatement3.setBlob(7, users.getTree_pic3());
+     
         preparedStatement3.executeUpdate();
         preparedStatement3.close();
         
@@ -896,22 +938,14 @@ public class userDAO
         	String bill_id = resultSet.getString("bill_id");
         	String requestQuote_id = resultSet.getString("requestQuote_id");
         	String quoteResponse_id = resultSet.getString("quoteResponse_id");
-        	Blob tree_pic1 = resultSet.getBlob("tree_pic1");
-        	Blob tree_pic2 = resultSet.getBlob("tree_pic2");
-        	Blob tree_pic3 = resultSet.getBlob("tree_pic3");
         	
-        	System.out.println("Blob: " + tree_pic1);
-        	String img_1 = picToImg(tree_pic1);
         	
-        	System.out.println("base64: " + img_1);
         	
-        	String img_2 = picToImg(tree_pic2);
-        	String img_3 = picToImg(tree_pic3);
             
             
 
             
-            user = new user(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, tree_pic1, tree_pic2, tree_pic3, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status, treeInfo_id, payment_id, billResponse_id, disputes_id, orderOfWork_id, bill_id, requestQuote_id, quoteResponse_id, img_1, img_2, img_3);
+            user = new user(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status, treeInfo_id, payment_id, billResponse_id, disputes_id, orderOfWork_id, bill_id, requestQuote_id, quoteResponse_id);
         } 
          
         resultSet.close();
@@ -1032,9 +1066,7 @@ public class userDAO
         		    ");"),
         		("CREATE TABLE if not exists Quotes(  " +
         		    "id VARCHAR(50) NOT NULL, " +
-        		    "tree_pic1 LONGBLOB, " +
-        		    "tree_pic2 LONGBLOB, " +
-        		    "tree_pic3 LONGBLOB, " +
+        		  
         			"quote_price VARCHAR(50), " +
         		    "quote_time VARCHAR(50), " +
         		    "quote_note VARCHAR(50), " +
@@ -1053,9 +1085,7 @@ public class userDAO
         		    "height VARCHAR(20), " +
         		    "location VARCHAR(20), " +
         		    "house_dist VARCHAR(20), " +
-        		    "tree_pic1 LONGBLOB, " +
-        		    "tree_pic2 LONGBLOB, " +
-        		    "tree_pic3 LONGBLOB " +
+        		   
         		");"),
         		("CREATE TABLE if not exists Payment( " +
         		    "payment_id VARCHAR(20) NOT NULL, " +
@@ -1100,7 +1130,7 @@ public class userDAO
         		");")
         		};
         		    
-        		String[] TUPLES = {("insert into Quotes(id, tree_pic1, tree_pic2, tree_pic3, quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status) " +
+        		String[] TUPLES = {("insert into Quotes(id,  quote_price, quote_time, quote_note, quote_response, quote_date, work_order_terms, work_order_status, bill_amount, bill_status) " +
         		    "values" +
         		    "('lJones@email.com', LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic.jpg'), LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic2.jpg'), LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic3.jpg'), '1200', '2 days', 'no note', 'Approved', '10/18/23', 'terms of work', 'uncompleted', '1200', 'unpaied')," +
         			"('nWayne@email.com', LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic.jpg'), LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic2.jpg'), LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic3.jpg'), '1200', '2 days', 'no note', 'Approved', '10/18/23', 'terms of work', 'uncompleted', '1200', 'unpaied')," +
@@ -1127,7 +1157,7 @@ public class userDAO
         		    };
         		    
         		    
-        		String[] TUPLES3 = {("insert into TreeInfo(treeInfo_id, size, height, location, house_dist, tree_pic1, tree_pic2, tree_pic3) " +
+        		String[] TUPLES3 = {("insert into TreeInfo(treeInfo_id, size, height, location, house_dist) " +
         			"values" +
         			"('lJones@email.com', '0', '10/29/24', 'back yard', '120ft', 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic.jpg', 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic2.jpg', 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic3.jpg')," +
         			"('nWayne@email.com', '12', '10/29/24', 'back yard', '120ft', 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic.jpg', 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic2.jpg', 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TreePic3.jpg')," +

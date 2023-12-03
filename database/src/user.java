@@ -32,12 +32,8 @@ public class user
 		protected String request_status;
 		protected String quote_response_note;
 		protected String quote_response_status;
-		protected Blob tree_pic1; 
-		protected Blob tree_pic2; 
-		protected Blob tree_pic3; 
-		protected String img_1;
-		protected String img_2;
-		protected String img_3;
+		
+		
 		protected String treeInfo_id;
 		protected String payment_id;
 		protected String billResponse_id;
@@ -57,14 +53,14 @@ public class user
 	        this.email = email;
 	    }
 	    
-	    public user(String email, String firstName, String lastName, String password, String address, String phone_num, String card_num, String card_date, String card_cvc, String role, Blob tree_pic1, Blob tree_pic2, Blob tree_pic3, String size, String height, String location, String house_dist, String bill_response_note, String bill_response_date, String amount_paid, String payment_date, String dispute_note, String dispute_date, String terms_agreed, String oow_status, String amount_due, String bill_status, String bill_note, String request_note, String request_status, String quote_response_note, String quote_response_status, String treeInfo_id, String payment_id, String billResponse_id, String disputes_id, String orderOfWork_id, String bill_id, String requestQuote_id, String quoteResponse_id, String img_1, String img_2, String img_3)
+	    public user(String email, String firstName, String lastName, String password, String address, String phone_num, String card_num, String card_date, String card_cvc, String role, String size, String height, String location, String house_dist, String bill_response_note, String bill_response_date, String amount_paid, String payment_date, String dispute_note, String dispute_date, String terms_agreed, String oow_status, String amount_due, String bill_status, String bill_note, String request_note, String request_status, String quote_response_note, String quote_response_status, String treeInfo_id, String payment_id, String billResponse_id, String disputes_id, String orderOfWork_id, String bill_id, String requestQuote_id, String quoteResponse_id)
 	    {
-	    	this(firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, tree_pic1, tree_pic2, tree_pic3, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status, treeInfo_id, payment_id, billResponse_id, disputes_id, orderOfWork_id, bill_id, requestQuote_id, quoteResponse_id, img_1, img_2, img_3);
+	    	this(firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status, treeInfo_id, payment_id, billResponse_id, disputes_id, orderOfWork_id, bill_id, requestQuote_id, quoteResponse_id);
 	    	this.email = email;
 	    }
 	 
 	
-	    public user(String firstName, String lastName, String password, String address, String phone_num, String card_num, String card_date, String card_cvc, String role, Blob tree_pic1, Blob tree_pic2, Blob tree_pic3, String size, String height, String location, String house_dist, String bill_response_note, String bill_response_date, String amount_paid, String payment_date, String dispute_note, String dispute_date, String terms_agreed, String oow_status, String amount_due, String bill_status, String bill_note, String request_note, String request_status, String quote_response_note, String quote_response_status, String treeInfo_id, String payment_id, String billResponse_id, String disputes_id, String orderOfWork_id, String bill_id, String requestQuote_id, String quoteResponse_id, String img_1, String img_2, String img_3) 
+	    public user(String firstName, String lastName, String password, String address, String phone_num, String card_num, String card_date, String card_cvc, String role, String size, String height, String location, String house_dist, String bill_response_note, String bill_response_date, String amount_paid, String payment_date, String dispute_note, String dispute_date, String terms_agreed, String oow_status, String amount_due, String bill_status, String bill_note, String request_note, String request_status, String quote_response_note, String quote_response_status, String treeInfo_id, String payment_id, String billResponse_id, String disputes_id, String orderOfWork_id, String bill_id, String requestQuote_id, String quoteResponse_id) 
 	    {
 	    	  
 	    	this.firstName = firstName;  
@@ -77,9 +73,7 @@ public class user
 	    	this.card_cvc = card_cvc; 
 	    	this.role = role; 
 
-	    	this.tree_pic1 = tree_pic1; 
-	    	this.tree_pic2 = tree_pic2; 
-	    	this.tree_pic3 = tree_pic3; 
+
 	    	this.size = size;
 	    	this.height = height;
 	    	this.location = location;
@@ -108,9 +102,7 @@ public class user
 	    	this.bill_id = bill_id;
 	    	this.requestQuote_id = requestQuote_id;
 	    	this.quoteResponse_id = quoteResponse_id;
-	    	this.img_1 = img_1;
-	    	this.img_2 = img_2;
-	    	this.img_3 = img_3;
+	    	
 	    }
 	    
 	    
@@ -147,24 +139,8 @@ public class user
 	    public void setRole(String role) {
 	        this.role = role;
 	    }
-	    public void setTree_pic1(Blob tree_pic1) {
-	        this.tree_pic1 = tree_pic1;
-	    }
-	    public void setTree_pic2(Blob tree_pic2) {
-	        this.tree_pic2 = tree_pic2;
-	    }
-	    public void setTree_pic3(Blob tree_pic3) {
-	        this.tree_pic3 = tree_pic3;
-	    }
-	    public void setImg_1(String img_1) {
-	        this.img_1 = img_1;
-	    }
-	    public void setImg_2(String img_2) {
-	        this.img_2 = img_2;
-	    }
-	    public void setImg_3(String img_3) {
-	        this.img_3 = img_3;
-	    }    
+
+	    
 	    public void setSize(String size) {
 	        this.size = size;
 	    }
@@ -279,24 +255,8 @@ public class user
 	    public String getRole() {
 	        return role;
 	    }
-	    public Blob getTree_pic1() {
-	        return tree_pic1;
-	    }
-	    public Blob getTree_pic2() {
-	        return tree_pic2;
-	    }
-	    public Blob getTree_pic3() {
-	        return tree_pic3;
-	    }
-	    public String getImg_1() {
-	        return img_1;
-	    }
-	    public String getImg_2() {
-	        return img_2;
-	    }
-	    public String getImg_3() {
-	        return img_3;
-	    }
+	 
+	  
 	    public String getSize() {
 	        return size;
 	    }

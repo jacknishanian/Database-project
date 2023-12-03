@@ -27,9 +27,7 @@
 				
 				<th>OOW Status</th>
 				
-				<th>Tree_pic1</th>
-				<th>Tree_pic2</th>
-				<th>Tree_pic3</th>
+				
 
 				<th>Work_order_terms</th>
 				<th>Work_order_status</th>
@@ -47,9 +45,7 @@
                     <td><c:out value="${users.quote_response}" /></td>
                     <td><c:out value="${users.quote_date}" /></td>
                     
-                    <td><img src="data:image/jpg;base64, ${users.img_1}" width="200" height="200"></td>
-                    <td><img src="data:image/jpg;base64, ${users.img_2}" width="200" height="200"></td>
-                    <td><img src="data:image/jpg;base64, ${users.img_3}" width="200" height="200"></td>
+                  
                     
                     <td><c:out value="${users.work_order_terms}" /></td>
                     <td><c:out value="${users.work_order_status}"/></td>

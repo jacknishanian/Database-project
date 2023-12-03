@@ -179,6 +179,8 @@ public class ControlServlet extends HttpServlet {
 	    private void ownerPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
 	    	System.out.println("owner view");   	
 	    	request.setAttribute("listQuote", userDAO.getAllUserQuotes());
+	    	System.out.println("between");
+	    	request.setAttribute("oneTreeQuotes", userDAO.getAllSingleTreeQuotes());
 	    	request.getRequestDispatcher("ownerView.jsp").forward(request, response);
 	    	
 	    /*
@@ -318,13 +320,9 @@ public class ControlServlet extends HttpServlet {
 	    	String height = null;
 	    	String location = null;
 	    	String house_dist = null;
-	   	 	Blob tree_pic1 = null;
-	   	 	Blob tree_pic2 = null;
-	    	Blob tree_pic3 = null;
+	   	 	
 	    	
-	   	 	String img_1 = null;
-	   	 	String img_2 = null;
-	   	 	String img_3 = null;
+	   	 	
 	   	 	
 	   	 	if (userDAO.checkAddress(address)) {
 	   	 		System.out.println("Address taken, please enter new address");
@@ -337,7 +335,7 @@ public class ControlServlet extends HttpServlet {
 			   	 		System.out.println("Registration Successful! Added to database");
 			   	 		
 			   	 		
-			            user users = new user(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, tree_pic1, tree_pic2, tree_pic3, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status, treeInfo_id, payment_id, billResponse_id, disputes_id, orderOfWork_id, bill_id, requestQuote_id, quoteResponse_id, img_1, img_2, img_3);
+			            user users = new user(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status, treeInfo_id, payment_id, billResponse_id, disputes_id, orderOfWork_id, bill_id, requestQuote_id, quoteResponse_id);
 			            System.out.println("made it here2");
 			            userDAO.insert(users);
 			   	 		response.sendRedirect("login.jsp");
@@ -365,12 +363,8 @@ public class ControlServlet extends HttpServlet {
 	    	String height = request.getParameter("tree_height");
 	    	String location = request.getParameter("tree_location");
 	    	String house_dist = request.getParameter("house_dist");
-	   	 	Blob tree_pic1 = toBlob(request.getPart("tree_pic1"));
-	   	 	Blob tree_pic2 = toBlob(request.getPart("tree_pic2"));
-	    	Blob tree_pic3 = toBlob(request.getPart("tree_pic3"));
-	   	 	String img_1 = null;
-	   	 	String img_2 = null;
-	   	 	String img_3 = null;
+
+
 	    	
 	    	String amount_paid = "N/A";
 	    	String payment_date = "N/A";
@@ -395,7 +389,7 @@ public class ControlServlet extends HttpServlet {
 	    	String quote_response_status = "Waiting";
 	
 
-	    	quote quotes= new quote(id, size, height, location, house_dist, tree_pic1, tree_pic2, tree_pic3, img_1, img_2, img_3, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
+	    	quote quotes= new quote(id, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
             System.out.println("made it here");
             userDAO.insertQuote(quotes);
 
@@ -451,14 +445,7 @@ public class ControlServlet extends HttpServlet {
         		response.sendRedirect("login.jsp");
         	} 
 		
-		public static Blob toBlob(Part pic) throws SQLException, IOException {
-			InputStream inputStream = null;
-	   	 	
-	   	 	inputStream = pic.getInputStream();
-	   	 	byte[] img = inputStream.readAllBytes();
-	   	 	return new SerialBlob(img);
-			
-		}
+		
 }
 	        
 	        
