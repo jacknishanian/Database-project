@@ -78,11 +78,6 @@ CREATE TABLE if not exists Bill(
     bill_status VARCHAR(20),
     bill_note VARCHAR(20)
 );
-CREATE TABLE if not exists OrderOfWork(
-    orderOfWork_id VARCHAR(20) NOT NULL,
-    request_note VARCHAR(20),
-    request_status VARCHAR(20)
-);
 CREATE TABLE if not exists RequestQuote(
     requestQuote_id VARCHAR(20) NOT NULL,
     request_note VARCHAR(20),
@@ -103,7 +98,8 @@ insert into Quotes(id,  quote_price, quote_time, quote_note, quote_response, quo
 	('sSmith@email.com',   '1200', '2 days', 'no note', 'Approved', '10/18/23', 'terms of work', 'uncompleted', '1200', 'unpaied'),
 	('oHanks@email.com',   '1200', '2 days', 'no note', 'Approved', '10/18/23', 'terms of work', 'uncompleted', '1200', 'unpaied'),
 	('mSams@email.com',  '1200', '2 days', 'no note', 'Approved', '10/18/23', 'terms of work', 'uncompleted', '1200', 'unpaied'),
-	('rDavis@email.com', '1200', '2 days', 'no note', 'Approved', '10/18/23', 'terms of work', 'uncompleted', '1200', 'unpaied');
+	('rDavis@email.com', '1200', '2 days', 'no note', 'Approved', '10/18/23', 'terms of work', 'uncompleted', '1200', 'unpaied')
+    ;
  
  
 insert into User(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role)
@@ -126,57 +122,111 @@ insert into TreeInfo(treeInfo_id, size, height, location, house_dist,  num_trees
 	('lJones@email.com', '0', '120', 'back yard', '120ft','1'),
 	('nWayne@email.com', '12', '150', 'back yard', '120ft', '2'),
 	('mJones@email.com', '6', '150', 'back yard', '120ft', '3'),
-	('eName@email.com', '4', '8', 'back yard', '120ft', '1');
- 
+	('eName@email.com', '4', '8', 'back yard', '780ft', '1'),
+    ('kJones@email.com', '9', '120', 'back yard', '268ft','2'),
+	('sSmith@email.com', '7', '150', 'back yard', '589ft', '7'),
+	('oHanks@email.com', '6', '137', 'back yard', '48ft', '5'),
+	('hJones@email.com', '4', '8', 'back yard', '152ft', '1'),
+    ('rDavis@email.com', '6', '126', 'back yard', '176ft', '7'),
+	('mSams@email.com', '4', '8', 'back yard', '369ft', '2');
+    
+   
 insert into Payment(payment_id, amount_paid, payment_date)
 	values
-	('lJones@email.com', '1500', '10/29/24'),
+	('lJones@email.com', '1500', '10/29/23'),
 	('nWayne@email.com', '0', 'N/A'),
-	('mJones@email.com', '500', '10/29/24'),
-	('eName@email.com', '0', '10/29/23');
+	('mJones@email.com', '500', '10/29/23'),
+	('eName@email.com', '0', '10/29/23'),
+    ('kJones@email.com','675','10/15/23'),
+    ('sSmith@email.com','888', '11/10/23'),
+    ('oHanks@email.com','666', '11/05/23'),
+    ('hJones@email.com','1567','11/29/23'),
+    ('rDavis@email.com','456', '11/12/23'),
+    ('mSams@email.com','1203', '10/09/23');
  
 insert into BillResponse(billResponse_id, bill_response_note, bill_response_date)
 	values
-	('lJones@email.com', 'no note', '10/29/24'),
+	('lJones@email.com', 'no note', '10/29/23'),
 	('nWayne@email.com', 'no note', 'N/A'),
 	('mJones@email.com', 'no note', 'N/A'),
-	('eName@email.com', 'no note', '10/10/23');
+	('eName@email.com', 'no note', '10/10/23'),
+    ('kJones@email.com','no note','10/02/23'), 
+    ('sSmith@email.com','no note', '10/23/23'),
+    ('oHanks@email.com','no note', '10/05/23'),
+    ('hJones@email.com','no note','11/29/23'),
+    ('rDavis@email.com','no note', '11/02/23'),
+    ('mSams@email.com','no note', '10/09/23');
  
 insert into Disputes(disputes_id, dispute_note, dispute_date)
 	values
-	('lJones@email.com', 'no note', '10/29/24'),
+	('lJones@email.com', 'no note', '10/29/23'),
 	('nWayne@email.com', 'no note', 'N/A'),
-	('mJones@email.com', 'no note', '10/29/24'),
-	('eName@email.com', 'disputed', '10/29/24');
+	('mJones@email.com', 'no note', '10/29/23'),
+	('eName@email.com', 'disputed', '10/29/23'),
+    
+    ('kJones@email.com','no note','10/15/23'),
+    ('sSmith@email.com','no note', '10/23/23'),
+    ('oHanks@email.com','no note', '10/05/23'),
+    ('hJones@email.com','no note','11/29/23'),
+    ('rDavis@email.com','no note', '11/02/23'),
+    ('mSams@email.com','no note', '10/09/23');
  
 insert into OrderOfWork(orderOfWork_id, terms_agreed, oow_status, work_date)
 	values
 	('lJones@email.com', 'no terms', 'complete', '12/12/23'),
 	('nWayne@email.com', 'no terms', 'incomplete', 'N/A'),
 	('mJones@email.com', 'no terms', 'complete', '09/12/23'),
-	('eName@email.com', 'no terms', 'complete', '12/5/23');
+	('eName@email.com', 'no terms', 'complete', '12/5/23'),
+    
+	('kJones@email.com', 'no terms', 'complete', '10/15/23'),
+    ('sSmith@email.com', 'no terms', 'complete', '10/23/23'),
+    ('oHanks@email.com', 'no terms', 'complete', '10/05/23'),
+    ('hJones@email.com', 'no terms', 'incomplete', '11/29/23'),
+    ('rDavis@email.com', 'no terms', 'complete', '11/02/23'),
+    ('mSams@email.com', 'no terms', 'incomplete', '10/09/23');
  
 insert into Bill(bill_id, amount_due, bill_status, bill_note)
 	values
 	('lJones@email.com', '1500', 'paid', 'no note'),
 	('nWayne@email.com', '0', 'N/A', 'no note'),
 	('mJones@email.com', '1500', 'unpaid', 'no note'),
-	('eName@email.com', '1500', 'unpaid', 'no note');
+	('eName@email.com', '1500', 'unpaid', 'no note'),
+   ('kJones@email.com','675','paid', 'no note'),
+    ('sSmith@email.com','888', 'unpaid','no note'),
+    ('oHanks@email.com','666', 'paid','no note'),
+    ('hJones@email.com','1567','unpaid','no note'),
+    ('rDavis@email.com','456', 'paid','no note'),
+    ('mSams@email.com','1203', 'paid','no note');
  
 insert into RequestQuote(requestQuote_id, request_note, request_status)
 	values
 	('lJones@email.com', 'no note', 'approved'),
 	('nWayne@email.com', 'no note', 'un approved'),
 	('mJones@email.com', 'no note', 'approved'),
-	('eName@email.com', 'no note', 'approved');
+	('eName@email.com', 'no note', 'approved'),
+    ('kJones@email.com','no note','approved'),
+    ('sSmith@email.com','no note', 'approved'),
+    ('oHanks@email.com','no note', 'approved'),
+    ('hJones@email.com','no note','un approved'),
+    ('rDavis@email.com','no note', 'approved'),
+    ('mSams@email.com','no note', 'approved');
+    
  
 insert into QuoteResponse(quoteResponse_id, quote_response_note, quote_response_status)
 	values
 	('lJones@email.com', 'no note', 'un approved'),
 	('nWayne@email.com', 'no note', 'N/A'),
-	('mJones@email.com', 'no note', 'approved'),
-	('eName@email.com', 'no note', 'approved');
- 
+	('mJones@email.com', 'no note', 'un approved'),
+	('eName@email.com', 'no note', 'un approved'),
+    ('kJones@email.com','no note', 'approved'),
+    ('sSmith@email.com','no note', 'un approved'),
+    ('oHanks@email.com','no note', 'approved'),
+    ('hJones@email.com','no note', 'approved'),
+    ('rDavis@email.com','no note', 'approved'),
+    ('mSams@email.com','no note', 'un approved');
+    
+
+
  
 select * from User;
 select * from Quotes;
@@ -189,3 +239,6 @@ select * from OrderOfWork;
 select * from Bill;
 select * from RequestQuote;
 select * from QuoteResponse;
+
+
+

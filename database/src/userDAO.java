@@ -251,7 +251,6 @@ public class userDAO
          
       
         
-        
         int itr = 0;
         for (int i = 0; i < 3; i++) {
             if(i == 0) {
@@ -289,7 +288,6 @@ public class userDAO
                 	
                 	String quote_response_note = null;
                 	String quote_response_status = null;
-                    
 
                 	
                 	
@@ -2168,15 +2166,4 @@ public List<quote> getUserStats() throws SQLException, IOException {
         	
         disconnect();
     }
-    
-    
-   
-    
-    
-    
-    
-    
-	
-	
-
 }

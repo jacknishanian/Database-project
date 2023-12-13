@@ -125,7 +125,16 @@ public class ControlServlet extends HttpServlet {
                  System.out.println("The action is: list");
                  listUser(request, response);           	
                  break;
+        	 case "/cutPage":
+        		 System.out.println("To the cut function");
+        		 cutPage(request, response);
+        		 break;
+        	 case "/quotePage":
+        		 System.out.println("To the quote function");
+        		 quotePage(request, response, "");
+        		 break;
 	    	}
+
 	    }
 	    catch(Exception ex) {
         	System.out.println(ex.getMessage());
@@ -160,6 +169,36 @@ public class ControlServlet extends HttpServlet {
 	    	request.setAttribute("goodCli", userDAO.goodClients());
 	    	
 	    	request.getRequestDispatcher("rootView.jsp").forward(request, response);
+	    }
+	    private void cutPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ParseException{
+	    	System.out.println("cut view");
+			request.setAttribute("listUser", userDAO.listAllUsers()); 
+			request.setAttribute("listQuote", userDAO.getAllUserQuotes());
+	    	request.setAttribute("oneTreeQuotes", userDAO.getAllSingleTreeQuotes()); 
+	    	request.setAttribute("highTreesItem", userDAO.getHighestTree());
+	    	request.setAttribute("bigCli", userDAO.getBigClients()); 
+	    	request.setAttribute("cliStats", userDAO.getUserStats()); 
+	    	request.setAttribute("easyCli", userDAO.getEasyClients());
+	    	request.setAttribute("prospCli", userDAO.getProspectClient());  
+	    	request.setAttribute("badCli", userDAO.getBadClients());
+	    	request.setAttribute("overdue", userDAO.getOverDue());
+	    	request.setAttribute("goodCli", userDAO.goodClients());
+	    	request.getRequestDispatcher("cutView.jsp").forward(request, response);
+	    }
+	    private void quotePage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException, ParseException{
+	    	System.out.println("quote view");
+			request.setAttribute("listUser", userDAO.listAllUsers()); 
+			request.setAttribute("listQuote", userDAO.getAllUserQuotes());
+	    	request.setAttribute("oneTreeQuotes", userDAO.getAllSingleTreeQuotes()); 
+	    	request.setAttribute("highTreesItem", userDAO.getHighestTree());
+	    	request.setAttribute("bigCli", userDAO.getBigClients()); 
+	    	request.setAttribute("cliStats", userDAO.getUserStats()); 
+	    	request.setAttribute("easyCli", userDAO.getEasyClients());
+	    	request.setAttribute("prospCli", userDAO.getProspectClient());  
+	    	request.setAttribute("badCli", userDAO.getBadClients());
+	    	request.setAttribute("overdue", userDAO.getOverDue());
+	    	request.setAttribute("goodCli", userDAO.goodClients());
+	    	request.getRequestDispatcher("quoteView.jsp").forward(request, response);
 	    }
 	    private void userPage(HttpServletRequest request, HttpServletResponse response, String userName) throws ServletException, IOException, SQLException{
 	    	System.out.println("user view");
