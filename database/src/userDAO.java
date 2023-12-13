@@ -8,7 +8,11 @@ import javax.servlet.http.HttpServlet;
 //import javax.servlet.http.HttpServletRequest;
 //import javax.servlet.http.HttpServletResponse;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.sql.PreparedStatement;
 //import java.sql.Connection;
 //import java.sql.PreparedStatement;
@@ -16,6 +20,7 @@ import java.sql.ResultSet;
 //import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.Base64;
 import java.io.ByteArrayOutputStream;
 import java.sql.Blob;
@@ -127,115 +132,45 @@ public class userDAO
         	String card_date = resultSet.getString("card_date");
         	String card_cvc = resultSet.getString("card_cvc");
         	String role = resultSet.getString("role");
-        	String treeInfo_id = resultSet.getString("treeInfo_id");
-        	String payment_id = resultSet.getString("payment_id");
-        	String billResponse_id = resultSet.getString("billResponse_id");
-        	String disputes_id = resultSet.getString("disputes_id");
-        	String orderOfWork_id = resultSet.getString("orderOfWork_id");
-        	String bill_id = resultSet.getString("bill_id");
-        	String requestQuote_id = resultSet.getString("requestQuote_id");
-        	String quoteResponse_id = resultSet.getString("quoteResponse_id");
+        	String treeInfo_id = null; //= resultSet.getString("treeInfo_id");
+        	String payment_id = null; //= resultSet.getString("payment_id");
+        	String billResponse_id = null; //= resultSet.getString("billResponse_id");
+        	String disputes_id = null; //= resultSet.getString("disputes_id");
+        	String orderOfWork_id = null; //= resultSet.getString("orderOfWork_id");
+        	String bill_id = null; //= resultSet.getString("bill_id");
+        	String requestQuote_id = null; //= resultSet.getString("requestQuote_id");
+        	String quoteResponse_id = null; //= resultSet.getString("quoteResponse_id");
         	
-        	String size;
-        	String height;
-        	String location;
-        	String house_dist;
-        	String bill_response_note;
-        	String bill_response_date;
-        	String amount_paid;
-        	String payment_date;
-        	String dispute_note;
-        	String dispute_date;
-        	String terms_agreed;
-        	String oow_status;
-        	String amount_due;
-        	String bill_status;
-        	String bill_note;
-        	String request_note;
-        	String request_status;
-        	String quote_response_note;
-        	String quote_response_status;
+        	String size = null;
+        	String height = null;
+        	String location = null;
+        	String house_dist = null;
+        	String num_trees = null;
+        	String bill_response_note = null;
+        	String bill_response_date = null;
+        	String amount_paid = null;
+        	String payment_date = null;
+        	String dispute_note = null;
+        	String dispute_date = null;
+        	String terms_agreed = null;
+        	String oow_status = null;
+        	String amount_due = null;
+        	String bill_status = null;
+        	String bill_note = null;
+        	String request_note = null;
+        	String request_status = null;
+        	String quote_response_note = null;
+        	String quote_response_status = null;
 
         	
-        	String img_1;
-        	String img_2;
-        	String img_3;
-
+        	String img_1 = null;
+        	String img_2 = null;
+        	String img_3 = null;
         	
-        	
-        	System.out.println(treeInfo_id);
-        	if (treeInfo_id != null) {
-        		System.out.println(treeInfo_id);
-        		bill_response_note = resultSet.getString("bill_response_note");
-        		bill_response_date = resultSet.getString("bill_response_date");
-        		amount_paid = resultSet.getString("amount_paid");
-        		payment_date = resultSet.getString("payment_date");
-        		dispute_note = resultSet.getString("dispute_note");
-        		dispute_date = resultSet.getString("dispute_date");
-        		terms_agreed = resultSet.getString("terms_agreed");
-        		oow_status = resultSet.getString("oow_status");
-        		amount_due = resultSet.getString("amount_due");
-        		bill_status = resultSet.getString("bill_status");
-        		bill_note = resultSet.getString("bill_note");
-        		request_note = resultSet.getString("request_note");
-        		request_status = resultSet.getString("request_status");
-        		quote_response_note = resultSet.getString("quote_response_note");
-        		quote_response_status = resultSet.getString("quote_response_status");
-        		size = resultSet.getString("size");
-        		height = resultSet.getString("height");
-        		location = resultSet.getString("location");
-        		house_dist = resultSet.getString("house_dist");
-        		
-                treeInfo_id = resultSet.getString("treeInfo_id");
-                payment_id = resultSet.getString("payment_id");
-                billResponse_id = resultSet.getString("billResponse_id");
-                disputes_id = resultSet.getString("disputes_id");
-                orderOfWork_id = resultSet.getString("orderOfWork_id");
-                bill_id = resultSet.getString("bill_id");
-                requestQuote_id = resultSet.getString("requestQuote_id");
-                quoteResponse_id = resultSet.getString("quoteResponse_id");
-                
-        	}
-        	else {
-        		
-        		size = "N/A";
-        		height = "N/A";
-        		location = "N/A";
-        		house_dist = "N/A";
-        		bill_response_note = "N/A";
-        		bill_response_date = "N/A";
-        		amount_paid = "N/A";
-        		payment_date = "N/A";
-        		dispute_note = "N/A";
-        		dispute_date = "N/A";
-        		terms_agreed = "N/A";
-        		oow_status = "N/A";
-        		amount_due = "N/A";
-        		bill_status = "N/A";
-        		bill_note = "N/A";
-        		request_note = "N/A";
-        		request_status = "N/A";
-        		quote_response_note = "N/A";
-        		quote_response_status = "N/A";
-        		
-        		
-            	img_1 = null;
-            	img_2 = null;
-            	img_3 = null;
-            	
-            	treeInfo_id = "N/A";
-            	payment_id = "N/A";
-            	billResponse_id = "N/A";
-            	disputes_id = "N/A";
-            	orderOfWork_id = "N/A";
-            	bill_id = "N/A";
-            	requestQuote_id = "N/A";
-            	quoteResponse_id = "N/A";
-        	}
         	
         	
              
-            user users = new user(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status, treeInfo_id, payment_id, billResponse_id, disputes_id, orderOfWork_id, bill_id, requestQuote_id, quoteResponse_id);
+            user users = new user(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, size, height, location, house_dist, num_trees, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status, treeInfo_id, payment_id, billResponse_id, disputes_id, orderOfWork_id, bill_id, requestQuote_id, quoteResponse_id);
             listUser.add(users);
         }        
         resultSet.close();
@@ -282,6 +217,7 @@ public class userDAO
         	
         	String terms_agreed = null;
         	String oow_status = null;
+        	String work_date = null;
         	
         	String amount_due = null;
         	String bill_status = null;
@@ -294,7 +230,7 @@ public class userDAO
         	String quote_response_status = null;
             
 
-            quote quotes = new quote(id, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
+            quote quotes = new quote(id, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, work_date, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
             listQuote.add(quotes);
         }        
         resultSet.close();
@@ -305,12 +241,120 @@ public class userDAO
     public List<quote> getAllSingleTreeQuotes() throws SQLException, IOException {
     	List<quote> listQuote = new ArrayList<quote>(); 
 
-    	
-    	
-    	String sql2 = "SELECT * FROM TreeInfo WHERE num_trees='1'";
+    	String sql = "SELECT * FROM TreeInfo WHERE num_trees='1'";
 
         connect_func();
         
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+         
+      
+        
+        
+        int itr = 0;
+        for (int i = 0; i < 3; i++) {
+            if(i == 0) {
+                while (resultSet.next()) {
+
+                	String id = resultSet.getString("treeInfo_id");
+                	
+                	String size = resultSet.getString("size");
+                	String height = resultSet.getString("height");
+                	String location = resultSet.getString("location");
+                	String house_dist = resultSet.getString("house_dist");
+                	String num_trees = resultSet.getString("num_trees");
+                	
+
+                	
+                	String bill_response_note = null;
+                	String bill_response_date = null;
+                	
+                	String amount_paid = null;
+                	String payment_date = null;
+                	
+                	String dispute_note = null;
+                	String dispute_date = null;
+                	
+                	String terms_agreed = null;
+                	String oow_status = null;
+                	String work_date = null;
+                	
+                	String amount_due = null;
+                	String bill_status = null;
+                	String bill_note = null;
+                	
+                	String request_note = null;
+                	String request_status = null;
+                	
+                	String quote_response_note = null;
+                	String quote_response_status = null;
+                    
+
+                	
+                	
+                	System.out.println("id: " + id);
+                	System.out.println("tree size: " + size);
+                	System.out.println("tree num: " + num_trees);
+                    quote quotes = new quote(id, size, height, location, house_dist, num_trees, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, work_date, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
+                    listQuote.add(quotes);
+                }  
+                resultSet.close();
+            }
+            if(i == 1) {
+                for (int j = 0; j < listQuote.size(); j++) {
+                	String sql2 = "SELECT * FROM RequestQuote WHERE requestQuote_id=?";
+            
+                	preparedStatement = (PreparedStatement) connect.prepareStatement(sql2);
+                    preparedStatement.setString(1, listQuote.get(j).id);
+                    resultSet = preparedStatement.executeQuery();
+
+                    while (resultSet.next()) {
+                	    String request_note = resultSet.getString("request_note");
+                	    String request_status = resultSet.getString("request_status");
+                        
+                        listQuote.get(j).request_note = request_note;
+                        listQuote.get(j).request_status = request_status;
+                        itr++;
+            	    }
+                }
+                
+                resultSet.close();
+            }
+            if(i == 2) {
+                for (int j = 0; j < listQuote.size(); j++) {
+                	String sql2 = "SELECT * FROM OrderOfWork WHERE orderOfWork_id=?";
+            
+                	preparedStatement = (PreparedStatement) connect.prepareStatement(sql2);
+                    preparedStatement.setString(1, listQuote.get(j).id);
+                    resultSet = preparedStatement.executeQuery();
+
+                    while (resultSet.next()) {
+                	    String oow_status = resultSet.getString("oow_status");
+
+                        
+                        listQuote.get(j).oow_status = oow_status;
+                        listQuote.get(j).terms_agreed = oow_status;
+                        listQuote.get(j).work_date = oow_status;
+                        itr++;
+            	    }
+                }
+                
+                resultSet.close();
+            }
+        }
+        
+        
+        resultSet.close();
+        disconnect();        
+        return listQuote;
+    }
+    public List<quote> getEasyClients() throws SQLException, IOException {
+    	List<quote> listQuote = new ArrayList<quote>(); 
+
+    	String sql2 = "SELECT * FROM QuoteResponse WHERE quote_response_status='approved' ";
+
+        connect_func();
         
         statement = (Statement) connect.createStatement();
         ResultSet resultSet = statement.executeQuery(sql2);
@@ -318,18 +362,20 @@ public class userDAO
          
         while (resultSet.next()) {
 
-        	String id = resultSet.getString("treeInfo_id");
+        	String id = resultSet.getString("quoteResponse_id");
         	
-        	String size = resultSet.getString("size");
-        	String height = resultSet.getString("height");
-        	String location = resultSet.getString("location");
-        	String house_dist = resultSet.getString("house_dist");
-        	String num_trees = resultSet.getString("num_trees");
+        	String size = resultSet.getString("quoteResponse_id");
+        	String height = null;
+        	String location = null;
+        	String house_dist = null;
+        	String num_trees = null;
         	
 
         	
-        	String bill_response_note = null;
-        	String bill_response_date = null;
+        	String bill_response_note = resultSet.getString("quote_response_note");
+        	String bill_response_date = resultSet.getString("quote_response_note");
+        	
+        	System.out.println(resultSet.getString("quoteResponse_id"));
         	
         	String amount_paid = null;
         	String payment_date = null;
@@ -353,17 +399,899 @@ public class userDAO
 
         	
         	
-        	System.out.println("id: " + id);
-        	System.out.println("tree size: " + size);
-        	System.out.println("tree num: " + num_trees);
-            quote quotes = new quote(id, size, height, location, house_dist, num_trees, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
+
+            quote quotes = new quote(id, id, id, id, id, id, id, bill_response_date, id, id, id, id, id, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
             listQuote.add(quotes);
         }        
         resultSet.close();
         disconnect();        
         return listQuote;
     }
+    
+    public List<quote> getProspectClient() throws SQLException, IOException {
+    	List<quote> listQuote = new ArrayList<quote>(); 
+
+    	String sql2 = "SELECT * FROM QuoteResponse WHERE quote_response_status='un approved'";
+
+        connect_func();
+        
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql2);
+
+         
+        while (resultSet.next()) {
+
+        	String id = resultSet.getString("quoteResponse_id");
+        	
+        	String size = resultSet.getString("quoteResponse_id");
+        	String height = null;
+        	String location = null;
+        	String house_dist = null;
+        	String num_trees = null;
+        	
+
+        	
+        	String bill_response_note = resultSet.getString("quote_response_note");
+        	String bill_response_date = resultSet.getString("quote_response_note");
+        	
+        	System.out.println(resultSet.getString("quoteResponse_id"));
+        	
+        	String amount_paid = null;
+        	String payment_date = null;
+        	
+        	String dispute_note = null;
+        	String dispute_date = null;
+        	
+        	String terms_agreed = null;
+        	String oow_status = null;
+        	
+        	String amount_due = null;
+        	String bill_status = null;
+        	String bill_note = null;
+        	
+        	String request_note = null;
+        	String request_status = null;
+        	
+        	String quote_response_note = null;
+        	String quote_response_status = null;
+            
+        	
+
+            quote quotes = new quote(id, id, id, id, id, id, id, bill_response_date, id, id, id, id, id, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
+            listQuote.add(quotes);
+        }        
+        resultSet.close();
+        disconnect();        
+        return listQuote;
+    }
+    
+public List<quote> getBadClients() throws SQLException, IOException, ParseException {
+    	List<quote> listQuote = new ArrayList<quote>(); 
+
+    	String sql = "SELECT * FROM Bill WHERE bill_status='unpaid'";
+    	
+
+        connect_func();
+        
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        
+        
+        int itr = 0;
+        for (int i = 0; i < 2; i++) {
+            if(i == 0) {
+                while (resultSet.next()) {
+
+            	    String id = resultSet.getString("bill_id");
+
+            	    String size = null;
+            	    String height = null;
+            	    String location = null;
+            	    String house_dist = null;
+            	    String num_trees = null;
+
+
+            	    String bill_response_note = null;
+            	    String bill_response_date = null;
+
+            	    String amount_paid = null;
+            	    String payment_date = null;
+
+            	    String dispute_note = null;
+            	    String dispute_date = null;
+
+            	    String terms_agreed = null;
+            	    String oow_status = null;
+            	    String work_date = null;
+
+            	    String amount_due = resultSet.getString("amount_due");
+            	    String bill_status = resultSet.getString("bill_status");
+            	    String bill_note = resultSet.getString("bill_note");
+
+            	    String request_note = null;
+            	    String request_status = null;
+
+            	    String quote_response_note = null;
+            	    String quote_response_status = null;
+            	    
+            	    itr++;
+                    quote quotes = new quote(id, size, height, location, house_dist, num_trees, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, work_date, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
+                    listQuote.add(quotes);
+        	    }
+                resultSet.close();
+            }
+            if(i == 1) {
+                for (int j = 0; j < listQuote.size(); j++) {
+                	String sql2 = "SELECT * FROM Payment WHERE payment_id=?";
+            
+                	preparedStatement = (PreparedStatement) connect.prepareStatement(sql2);
+                    preparedStatement.setString(1, listQuote.get(j).id);
+                    resultSet = preparedStatement.executeQuery();
+
+                    while (resultSet.next()) {
+                	    String amount_paid = resultSet.getString("amount_paid");
+                	    String payment_date = resultSet.getString("payment_date");
+                        
+                        listQuote.get(j).amount_paid = amount_paid;
+                        listQuote.get(j).payment_date = payment_date;
+                        itr++;
+            	    }
+                }
+                
+                resultSet.close();
+            }
+        }
+        	
+        //SimpleDateFormat today = new SimpleDateFormat("MM/dd/yyyy");
+        String todayDay = "12/12/23";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        
+        //DateTimeFormatter fmt = DateTimeFormatter.ofPattern( "MM/dd/uuuu");
+        
+        for (int j = 0; j < listQuote.size(); j++) {
+        	//System.out.println("ID: " + listQuote.get(j).id);
+        	//System.out.println("amt paid: " + listQuote.get(j).amount_paid);
+        	
+        	java.util.Date date1 = (java.util.Date) simpleDateFormat.parse(todayDay);
+        	java.util.Date date2  = (java.util.Date) simpleDateFormat.parse(listQuote.get(j).payment_date);
+        	//long diffMS = Math.abs(date2.getTime() - date1.getTime());
+        	long diffMS = Math.abs(date1.getTime() - date2.getTime());
+        	
+        	//long diff = TimeUnit.DAYS.convert(diffMS, TimeUnit.MILLISECONDS);
+        	long diff = TimeUnit.MILLISECONDS.toDays(diffMS);
+        	
+        	
+            
+            if (diff < 7 || date1.before(date2)) {
+
+                listQuote.remove(j);
+            }
+            
+        }
+        	
+
+                
+        resultSet.close();
+        disconnect();        
+        return listQuote;
+}
+
+public List<quote> getOverDue() throws SQLException, IOException, ParseException {
+	List<quote> listQuote = new ArrayList<quote>(); 
+
+	String sql = "SELECT * FROM Bill WHERE bill_status='unpaid'";
+	
+
+    connect_func();
+    
+    statement = (Statement) connect.createStatement();
+    ResultSet resultSet = statement.executeQuery(sql);
+    
+    
+    int itr = 0;
+    for (int i = 0; i < 3; i++) {
+        if(i == 0) {
+            while (resultSet.next()) {
+
+        	    String id = resultSet.getString("bill_id");
+
+        	    String size = null;
+        	    String height = null;
+        	    String location = null;
+        	    String house_dist = null;
+        	    String num_trees = null;
+
+
+        	    String bill_response_note = null;
+        	    String bill_response_date = null;
+
+        	    String amount_paid = null;
+        	    String payment_date = null;
+
+        	    String dispute_note = null;
+        	    String dispute_date = null;
+
+        	    String terms_agreed = null;
+        	    String oow_status = null;
+        	    String work_date = null;
+
+        	    String amount_due = resultSet.getString("amount_due");
+        	    String bill_status = resultSet.getString("bill_status");
+        	    String bill_note = resultSet.getString("bill_note");
+
+        	    String request_note = null;
+        	    String request_status = null;
+
+        	    String quote_response_note = null;
+        	    String quote_response_status = null;
+        	    
+        	    itr++;
+                quote quotes = new quote(id, size, height, location, house_dist, num_trees, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, work_date, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
+                listQuote.add(quotes);
+    	    }
+            resultSet.close();
+        }
+        if(i == 1) {
+            for (int j = 0; j < listQuote.size(); j++) {
+            	String sql2 = "SELECT * FROM Payment WHERE payment_id=?";
+        
+            	preparedStatement = (PreparedStatement) connect.prepareStatement(sql2);
+                preparedStatement.setString(1, listQuote.get(j).id);
+                resultSet = preparedStatement.executeQuery();
+
+                while (resultSet.next()) {
+            	    String amount_paid = resultSet.getString("amount_paid");
+            	    String payment_date = resultSet.getString("payment_date");
+                    
+                    listQuote.get(j).amount_paid = amount_paid;
+                    listQuote.get(j).payment_date = payment_date;
+                    itr++;
+        	    }
+            }
+            
+            resultSet.close();
+        }
+        if(i == 2) {
+            for (int j = 0; j < listQuote.size(); j++) {
+            	String sql2 = "SELECT * FROM BillResponse WHERE billResponse_id=?";
+        
+            	preparedStatement = (PreparedStatement) connect.prepareStatement(sql2);
+                preparedStatement.setString(1, listQuote.get(j).id);
+                resultSet = preparedStatement.executeQuery();
+
+                while (resultSet.next()) {
+            	    String bill_response_note = resultSet.getString("bill_response_note");
+            	    String bill_response_date = resultSet.getString("bill_response_date");
+                    
+                    listQuote.get(j).bill_response_note = bill_response_note;
+                    listQuote.get(j).bill_response_date = bill_response_date;
+                    itr++;
+        	    }
+            }
+            
+            resultSet.close();
+        }
+    }
+    	
+    //SimpleDateFormat today = new SimpleDateFormat("MM/dd/yyyy");
+    String todayDay = "12/12/23";
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    
+    //DateTimeFormatter fmt = DateTimeFormatter.ofPattern( "MM/dd/uuuu");
+    
+    for (int j = 0; j < listQuote.size(); j++) {
+    	//System.out.println("ID: " + listQuote.get(j).id);
+    	//System.out.println("amt paid: " + listQuote.get(j).amount_paid);
+
+    	if (listQuote.get(j).bill_response_date.equals("N/A")) {
+    		listQuote.remove(j);
+    		j = 0;
+    	}
+    	else {
+        	java.util.Date date1 = (java.util.Date) simpleDateFormat.parse(listQuote.get(j).bill_response_date);
+
+        	java.util.Date date2  = (java.util.Date) simpleDateFormat.parse(listQuote.get(j).payment_date);
+
+        	//long diffMS = Math.abs(date2.getTime() - date1.getTime());
+        	long diffMS = Math.abs(date1.getTime() - date2.getTime());
+        	
+        	//long diff = TimeUnit.DAYS.convert(diffMS, TimeUnit.MILLISECONDS);
+        	long diff = TimeUnit.MILLISECONDS.toDays(diffMS);
+        	
+        	System.out.println("Here");
+        	System.out.println("Here");
+        	System.out.println("Here");
+        	System.out.println("Day1: " + date1 + " Day2: " + date2);
+            System.out.println("Bresponse before Pdate" + date1.before(date2));
+            if (diff < 7 || date1.before(date2)) {
+
+                listQuote.remove(j);
+            }
+    	}
+
+        
+    }
+    	
+
+            
+    resultSet.close();
+    disconnect();        
+    return listQuote;
+}
+
+public List<quote> goodClients() throws SQLException, IOException, ParseException {
+	List<quote> listQuote = new ArrayList<quote>(); 
+
+	String sql = "SELECT * FROM Bill WHERE bill_status='paid'";
+	
+
+    connect_func();
+    
+    statement = (Statement) connect.createStatement();
+    ResultSet resultSet = statement.executeQuery(sql);
+    
+    
+    int itr = 0;
+    for (int i = 0; i < 3; i++) {
+        if(i == 0) {
+            while (resultSet.next()) {
+
+        	    String id = resultSet.getString("bill_id");
+
+        	    String size = null;
+        	    String height = null;
+        	    String location = null;
+        	    String house_dist = null;
+        	    String num_trees = null;
+
+
+        	    String bill_response_note = null;
+        	    String bill_response_date = null;
+
+        	    String amount_paid = null;
+        	    String payment_date = null;
+
+        	    String dispute_note = null;
+        	    String dispute_date = null;
+
+        	    String terms_agreed = null;
+        	    String oow_status = null;
+        	    String work_date = null;
+
+        	    String amount_due = resultSet.getString("amount_due");
+        	    String bill_status = resultSet.getString("bill_status");
+        	    String bill_note = resultSet.getString("bill_note");
+
+        	    String request_note = null;
+        	    String request_status = null;
+
+        	    String quote_response_note = null;
+        	    String quote_response_status = null;
+        	    
+        	    itr++;
+                quote quotes = new quote(id, size, height, location, house_dist, num_trees, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, work_date, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
+                listQuote.add(quotes);
+    	    }
+            resultSet.close();
+        }
+        if(i == 1) {
+            for (int j = 0; j < listQuote.size(); j++) {
+            	String sql2 = "SELECT * FROM Payment WHERE payment_id=?";
+        
+            	preparedStatement = (PreparedStatement) connect.prepareStatement(sql2);
+                preparedStatement.setString(1, listQuote.get(j).id);
+                resultSet = preparedStatement.executeQuery();
+
+                while (resultSet.next()) {
+            	    String amount_paid = resultSet.getString("amount_paid");
+            	    String payment_date = resultSet.getString("payment_date");
+                    
+                    listQuote.get(j).amount_paid = amount_paid;
+                    listQuote.get(j).payment_date = payment_date;
+                    itr++;
+        	    }
+            }
+            
+            resultSet.close();
+        }
+        if(i == 2) {
+            for (int j = 0; j < listQuote.size(); j++) {
+            	String sql2 = "SELECT * FROM BillResponse WHERE billResponse_id=?";
+        
+            	preparedStatement = (PreparedStatement) connect.prepareStatement(sql2);
+                preparedStatement.setString(1, listQuote.get(j).id);
+                resultSet = preparedStatement.executeQuery();
+
+                while (resultSet.next()) {
+            	    String bill_response_note = resultSet.getString("bill_response_note");
+            	    String bill_response_date = resultSet.getString("bill_response_date");
+                    
+                    listQuote.get(j).bill_response_note = bill_response_note;
+                    listQuote.get(j).bill_response_date = bill_response_date;
+                    itr++;
+        	    }
+            }
+            
+            resultSet.close();
+        }
+    }
+    	
+    //SimpleDateFormat today = new SimpleDateFormat("MM/dd/yyyy");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    
+    //DateTimeFormatter fmt = DateTimeFormatter.ofPattern( "MM/dd/uuuu");
+    
+    for (int j = 0; j < listQuote.size(); j++) {
+    	//
+    	//System.out.println("amt paid: " + listQuote.get(j).amount_paid);
+    	
+    	java.util.Date date1 = (java.util.Date) simpleDateFormat.parse(listQuote.get(j).payment_date);
+    	java.util.Date date2  = (java.util.Date) simpleDateFormat.parse(listQuote.get(j).bill_response_date);
+    	//long diffMS = Math.abs(date2.getTime() - date1.getTime());
+    	long diffMS = Math.abs(date1.getTime() - date2.getTime());
+    	
+    	//long diff = TimeUnit.DAYS.convert(diffMS, TimeUnit.MILLISECONDS);
+    	long diff = TimeUnit.MILLISECONDS.toDays(diffMS);
+    	
+    	System.out.println("ID: " + listQuote.get(j).id);
+    	System.out.println("Date 1/Day of payment: " + date1);
+    	System.out.println("Date 2/Day of bill: " + date2);
+    	
+    	System.out.println("Diff: " + diff);
+    	
+        if (diff > 1 ) {
+
+            listQuote.remove(j);
+        }
+        
+    }
+    	
+
+            
+    resultSet.close();
+    disconnect();        
+    return listQuote;
+}
+    
+    public List<quote> getHighestTree() throws SQLException, IOException {
+    	
+    	List<quote> highestTrees = new ArrayList<quote>();
+    	List<quote> userList = new ArrayList<quote>();
+    	
+    	connect_func();
+        
+    	String sql = "SELECT * FROM TreeInfo";
+    	
+        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
+
+        
+        
+        ResultSet resultSet = preparedStatement.executeQuery();
+        
+        for (int i = 0; i < 2; i++) {
+            if(i == 0) {
+            	while (resultSet.next()) {
+
+                	String id = resultSet.getString("treeInfo_id");
+                	
+                	String size = resultSet.getString("size");
+                	String height = resultSet.getString("height");
+                	String location = resultSet.getString("location");
+                	String house_dist = resultSet.getString("house_dist");
+                	String num_trees = resultSet.getString("num_trees");
+                	
+                	
+                	String bill_response_note = null;
+                	String bill_response_date = null;
+                	
+                	String amount_paid = null;
+                	String payment_date = null;
+                	
+                	String dispute_note = null;
+                	String dispute_date = null;
+                	
+                	String terms_agreed = null;
+                	String oow_status = null;
+                	String work_date = null;
+                	
+                	String amount_due = null;
+                	String bill_status = null;
+                	String bill_note = null;
+                	
+                	String request_note = null;
+                	String request_status = null;
+                	
+                	String quote_response_note = null;
+                	String quote_response_status = null;
+                	
+                	
+                    quote quotes = new quote(id, size, height, location, house_dist, num_trees, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, work_date, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
+                    userList.add(quotes);
+                }
+                resultSet.close();
+            }
+            if(i == 1) {
+            	for (int j = 0; j < userList.size(); j++) {
+                	String sql2 = "SELECT * FROM OrderOfWork WHERE orderOfWork_id=?";
+            
+                	preparedStatement = (PreparedStatement) connect.prepareStatement(sql2);
+                    preparedStatement.setString(1, userList.get(j).id);
+                    resultSet = preparedStatement.executeQuery();
+
+                    while (resultSet.next()) {
+                	    String oow_status = resultSet.getString("oow_status");
+
+                        
+                	    userList.get(j).oow_status = oow_status;
+
+                        
+            	    }
+            	}
+            }
+                resultSet.close();
+        }
+        
+        for (int i = 0; i < userList.size(); i++) { 
+        	if (userList.get(i).oow_status.equals("incomplete")) {
+        		userList.remove(i);
+        	}
+        }
+        
+        resultSet.close();
+        disconnect();     
+        
+        System.out.println("Made it between");
+        
+        boolean  tie = false;
+        for (int i = 0; i < userList.size(); i++) {
+        	
+        	if(highestTrees.size() == 0) {
+        		quote quotes = new quote(userList.get(i).getId(), "0", "0", "0", "0", "0", "0", "0", "0", null, null, null, null, null, null, null, null, null, null, null, null, null);
+        		highestTrees.add(quotes);
+        	}
+        	
+        	System.out.println("tree heights: " + userList.get(i).getHeight() + " vs " + highestTrees.get(0).getHeight());
+        	
+        	if (Integer.parseInt(userList.get(i).getHeight()) == Integer.parseInt(highestTrees.get(0).getHeight())) {
+        		
+        		
+        		if(tie == true) {
+        		
+        			highestTrees.get(1).id = userList.get(i).getId();
+        			highestTrees.get(1).size = userList.get(i).getSize();
+        			highestTrees.get(1).height = userList.get(i).getHeight();
+        			highestTrees.get(1).location = userList.get(i).getLocation();
+        			highestTrees.get(1).house_dist = userList.get(i).getHouse_dist();
+        			highestTrees.get(1).bill_response_note = null;
+        			highestTrees.get(1).bill_response_date = null;
+        			highestTrees.get(1).amount_paid = null;
+        			highestTrees.get(1).payment_date = null;
+        			highestTrees.get(1).dispute_note = null;
+        			highestTrees.get(1).dispute_date = null;
+        			highestTrees.get(1).terms_agreed = null; 
+        			highestTrees.get(1).oow_status = null;
+        			highestTrees.get(1).work_date = null;
+        			highestTrees.get(1).amount_due = null;
+        			highestTrees.get(1).bill_status = null;
+        			highestTrees.get(1).bill_note = null;
+        			highestTrees.get(1).request_note = null;
+        			highestTrees.get(1).request_status = null;
+        			highestTrees.get(1).quote_response_note = null;
+        			highestTrees.get(1).quote_response_status = null;
+        		}
+        		if (tie == false) {
+        			quote quotes = new quote(userList.get(i).getId(), userList.get(i).getSize(), userList.get(i).getHeight(), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        			highestTrees.add(quotes);
+        		}
+        		tie = true;
+        	}
+        	
+        	
+        	if (Integer.parseInt(userList.get(i).getHeight()) > Integer.parseInt(highestTrees.get(0).getHeight())) {
+        		
+        		if(tie == true) {
+        			highestTrees.remove(1);
+        			tie = false;
+        		}
+
+        		highestTrees.get(0).id = userList.get(i).getId();
+        		highestTrees.get(0).size = userList.get(i).getSize();
+        		highestTrees.get(0).height = userList.get(i).getHeight();
+        		highestTrees.get(0).location = userList.get(i).getLocation();
+        		highestTrees.get(0).house_dist = userList.get(i).getHouse_dist();
+        		highestTrees.get(0).bill_response_note = null;
+        		highestTrees.get(0).bill_response_date = null;
+        		highestTrees.get(0).amount_paid = null;
+        		highestTrees.get(0).payment_date = null;
+        		highestTrees.get(0).dispute_note = null;
+        		highestTrees.get(0).dispute_date = null;
+        		highestTrees.get(0).terms_agreed = null;
+        		highestTrees.get(0).oow_status = null;
+        		highestTrees.get(0).work_date = null;
+        		highestTrees.get(0).amount_due = null;
+        		highestTrees.get(0).bill_status = null;
+        		highestTrees.get(0).bill_note = null;
+        		highestTrees.get(0).request_note = null;
+        		highestTrees.get(0).request_status = null;
+        		highestTrees.get(0).quote_response_note = null;
+        		highestTrees.get(0).quote_response_status = null;
+
+        	}
+
+        }
+
+		return highestTrees;
+} 
+    
+public List<quote> getBigClients() throws SQLException, IOException {
+    	
+    	List<quote> bigClients = new ArrayList<quote>();
+    	List<quote> userList = new ArrayList<quote>();
+    	
+    	connect_func();
+        
+    	String sql = "SELECT * FROM TreeInfo";
+    	
+        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
+
+           
+        ResultSet resultSet = preparedStatement.executeQuery();
+        
+        
+        while (resultSet.next()) {
+
+        	String id = resultSet.getString("treeInfo_id");
+        	
+        	String size = resultSet.getString("size");
+        	String height = resultSet.getString("height");
+        	String location = resultSet.getString("location");
+        	String house_dist = resultSet.getString("house_dist");
+        	String num_trees = resultSet.getString("num_trees");
+        	
+        	String bill_response_note = null;
+        	String bill_response_date = null;
+        	
+        	String amount_paid = null;
+        	String payment_date = null;
+        	
+        	String dispute_note = null;
+        	String dispute_date = null;
+        	
+        	String terms_agreed = null;
+        	String oow_status = null;
+        	String work_date = null;
+        	
+        	String amount_due = null;
+        	String bill_status = null;
+        	String bill_note = null;
+        	
+        	String request_note = null;
+        	String request_status = null;
+        	
+        	String quote_response_note = null;
+        	String quote_response_status = null;
+        	
+        	
+            quote quotes = new quote(id, size, height, location, num_trees, num_trees, num_trees, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, work_date, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
+
+            userList.add(quotes);
+        }
+        resultSet.close();
+        disconnect();     
+        
+
+
+        boolean tie = false;
+        int numTie = 0;
+        for (int i = 0; i < userList.size(); i++) {
+
+        	if(bigClients.size() == 0) {
+        		quote quotes = new quote(userList.get(i).getId(), "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", null, null, null, null, null, null, null, null, null, null);
+        		bigClients.add(quotes);
+        	}
+
+        	
+        	if (Integer.parseInt(userList.get(i).getNum_trees()) == Integer.parseInt(bigClients.get(0).getNum_trees())) {
+        		
+        		numTie++;
+        		if(tie == true) {
+        			bigClients.get(numTie).id = userList.get(i).getId();
+        			bigClients.get(numTie).size = userList.get(i).getSize();
+        			bigClients.get(numTie).height = userList.get(i).getHeight();
+        			bigClients.get(numTie).location = userList.get(i).getLocation();
+        			bigClients.get(numTie).house_dist = userList.get(i).getHouse_dist();
+        			bigClients.get(numTie).num_trees = userList.get(i).getNum_trees();
+        			bigClients.get(numTie).bill_response_note = null;
+        			bigClients.get(numTie).bill_response_date = null;
+        			bigClients.get(numTie).amount_paid = null;
+        			bigClients.get(numTie).payment_date = null;
+        			bigClients.get(numTie).dispute_note = null;
+        			bigClients.get(numTie).dispute_date = null;
+        			bigClients.get(numTie).terms_agreed = null;
+        			bigClients.get(numTie).oow_status = null;
+        			bigClients.get(numTie).work_date = null;
+        			bigClients.get(numTie).amount_due = null;
+        			bigClients.get(numTie).bill_status = null;
+        			bigClients.get(numTie).bill_note = null;
+        			bigClients.get(numTie).request_note = null;
+        			bigClients.get(numTie).request_status = null;
+        			bigClients.get(numTie).quote_response_note = null;
+        			bigClients.get(numTie).quote_response_status = null;
+        		}
+        		if (tie == false) {
+        			quote quotes = new quote(userList.get(i).getId(), userList.get(i).getSize(), userList.get(i).getHeight(), userList.get(i).getLocation(), userList.get(i).getHouse_dist(), userList.get(i).getNum_trees(), "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0");
+        			bigClients.add(quotes);
+        			bigClients.get(numTie).setId(userList.get(i).getId());
+        		}
+        		tie = true;
+        		
+        	}
+        	if (Integer.parseInt(userList.get(i).getNum_trees()) > Integer.parseInt(bigClients.get(0).getNum_trees())) {
+        		if(tie == true) {
+        			while(numTie != 0) {
+        				bigClients.remove(numTie);
+        				numTie--;
+        			}
+        		
+        		}
+
+        		bigClients.get(0).id = userList.get(i).getId();
+        		bigClients.get(0).size = userList.get(i).getSize();
+        		bigClients.get(0).height = userList.get(i).getHeight();
+        		bigClients.get(0).location = userList.get(i).getLocation();
+        		bigClients.get(0).house_dist = userList.get(i).getHouse_dist();
+        		bigClients.get(0).num_trees = userList.get(i).getNum_trees();
+        		bigClients.get(0).bill_response_note = null;
+        		bigClients.get(0).bill_response_date = null;
+        		bigClients.get(0).amount_paid = null;
+        		bigClients.get(0).payment_date = null;
+        		bigClients.get(0).dispute_note = null;
+        		bigClients.get(0).dispute_date = null;
+        		bigClients.get(0).terms_agreed = null;
+        		bigClients.get(0).oow_status = null;
+        		bigClients.get(0).amount_due = null;
+        		bigClients.get(0).bill_status = null;
+        		bigClients.get(0).bill_note = null;
+        		bigClients.get(0).request_note = null;
+        		bigClients.get(0).request_status = null;
+        		bigClients.get(0).quote_response_note = null;
+        		bigClients.get(0).quote_response_status = null;
+        		tie = false;
+        	}
+        }
+		return bigClients;
+} 
  
+public List<quote> getUserStats() throws SQLException, IOException {
+    	List<quote> listQuote = new ArrayList<quote>(); 
+
+    	
+    	String sql = "SELECT * FROM TreeInfo";
+    	String sql2 = "SELECT * FROM Bill";
+    	String sql3 = "SELECT * FROM OrderOfWork";
+    	String sql4 = "SELECT * FROM Payment";
+    	
+    	
+    	
+        connect_func();
+        statement = (Statement) connect.createStatement();
+        
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        
+        for (int i = 0; i < 4; i++) {
+            if(i == 0) {
+                while (resultSet.next()) {
+
+            	    String id = resultSet.getString("treeInfo_id");
+
+            	    String size = resultSet.getString("size");
+            	    String height = resultSet.getString("height");
+            	    String location = resultSet.getString("location");
+            	    String house_dist = resultSet.getString("house_dist");
+            	    String num_trees = resultSet.getString("num_trees");
+
+
+
+            	    String bill_response_note = null;
+            	    String bill_response_date = null;
+
+            	    String amount_paid = null;
+            	    String payment_date = null;
+
+            	    String dispute_note = null;
+            	    String dispute_date = null;
+
+            	    String terms_agreed = null;
+            	    String oow_status = null;
+            	    String work_date = null;
+
+            	    String amount_due = null;
+            	    String bill_status = null;
+            	    String bill_note = null;
+
+            	    String request_note = null;
+            	    String request_status = null;
+
+            	    String quote_response_note = null;
+            	    String quote_response_status = null;
+
+                    quote quotes = new quote(id, size, height, location, house_dist, num_trees, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, work_date, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
+                    listQuote.add(quotes);
+        	    }
+                resultSet.close();
+            }
+            if(i == 1) {
+                int itr = 0;
+                resultSet = statement.executeQuery(sql2);
+
+                while (resultSet.next()) {
+            	    
+            	    String amount_due = resultSet.getString("amount_due");
+            	    String bill_status = resultSet.getString("bill_status");
+            	    String bill_note = resultSet.getString("bill_note");
+
+                    
+                    listQuote.get(itr).amount_due = amount_due;
+                    listQuote.get(itr).bill_status = bill_status;
+                    listQuote.get(itr).bill_note = bill_note;
+
+                    itr++;
+        	    }
+                resultSet.close();
+            }
+            if(i == 2) {
+                int itr = 0;
+                resultSet = statement.executeQuery(sql3);
+
+                while (resultSet.next()) {
+            	    
+            	    String terms_agreed = resultSet.getString("terms_agreed");
+            	    String work_date = resultSet.getString("work_date");
+            	    String oow_status = resultSet.getString("oow_status");
+            	    
+                    
+                    listQuote.get(itr).terms_agreed = terms_agreed;
+                    listQuote.get(itr).work_date = work_date;
+                    listQuote.get(itr).oow_status = oow_status;
+                    
+                    
+                    
+                    itr++;
+        	    }
+                resultSet.close();
+            }
+            if(i == 3) {
+                int itr = 0;
+                resultSet = statement.executeQuery(sql4);
+
+                while (resultSet.next()) {
+
+            	    String amount_paid = resultSet.getString("amount_paid");
+            	    String payment_date = resultSet.getString("payment_date");
+
+                    listQuote.get(itr).amount_paid = amount_paid;
+                    listQuote.get(itr).payment_date = payment_date;
+                    itr++;
+        	    }
+                resultSet.close();
+            }
+        	
+        }     
+        resultSet.close();
+        disconnect();        
+
+        for (int i = 0; i < listQuote.size(); i++) { 
+        	if (listQuote.get(i).oow_status.equals("incomplete")) {
+        		listQuote.remove(i);
+        	}
+        }
+        for (int i = 0; i < listQuote.size(); i++) { 
+        	listQuote.get(i).oow_status = listQuote.get(i).work_date;
+        }
+        
+        return listQuote;
+    }
     protected void disconnect() throws SQLException {
         if (connect != null && !connect.isClosed()) {
         	connect.close();
@@ -497,7 +1425,6 @@ public class userDAO
 		
 		preparedStatement.executeUpdate();
         //preparedStatement.close();
-
 
     }
     
@@ -930,6 +1857,7 @@ public class userDAO
         	String height = resultSet.getString("height");
         	String location = resultSet.getString("location");
         	String house_dist = resultSet.getString("house_dist");
+        	String num_trees = resultSet.getString("num_trees");
         	String treeInfo_id = resultSet.getString("treeInfo_id");
         	String payment_id = resultSet.getString("payment_id");
         	String billResponse_id = resultSet.getString("billResponse_id");
@@ -945,7 +1873,7 @@ public class userDAO
             
 
             
-            user = new user(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status, treeInfo_id, payment_id, billResponse_id, disputes_id, orderOfWork_id, bill_id, requestQuote_id, quoteResponse_id);
+            user = new user(email, firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, size, height, location, house_dist, num_trees, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status, treeInfo_id, payment_id, billResponse_id, disputes_id, orderOfWork_id, bill_id, requestQuote_id, quoteResponse_id);
         } 
          
         resultSet.close();

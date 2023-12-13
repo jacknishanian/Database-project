@@ -109,9 +109,10 @@
         	<td><c:out value="${otq.id}" /></td>
         	<td><c:out value="${otq.id}" /></td>
          </c:forEach>
+         
          </br>
          </br>
-       
+       </table>
         
 	</div>
 	</div>

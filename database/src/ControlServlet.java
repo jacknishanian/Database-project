@@ -19,6 +19,7 @@ import javax.servlet.http.Part;
 
 import java.sql.Connection;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.sql.PreparedStatement;
 import java.sql.Blob;
 import java.io.ByteArrayOutputStream;
@@ -144,9 +145,20 @@ public class ControlServlet extends HttpServlet {
 	        System.out.println("listPeople finished: 111111111111111111111111111111111111");
 	    }
 	    
-	    private void rootPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
+	    private void rootPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException, ParseException{
 	    	System.out.println("root view");
-			request.setAttribute("listUser", userDAO.listAllUsers());
+			request.setAttribute("listUser", userDAO.listAllUsers()); 
+			request.setAttribute("listQuote", userDAO.getAllUserQuotes());
+	    	request.setAttribute("oneTreeQuotes", userDAO.getAllSingleTreeQuotes()); 
+	    	request.setAttribute("highTreesItem", userDAO.getHighestTree());
+	    	request.setAttribute("bigCli", userDAO.getBigClients()); 
+	    	request.setAttribute("cliStats", userDAO.getUserStats()); 
+	    	request.setAttribute("easyCli", userDAO.getEasyClients());
+	    	request.setAttribute("prospCli", userDAO.getProspectClient());  
+	    	request.setAttribute("badCli", userDAO.getBadClients());
+	    	request.setAttribute("overdue", userDAO.getOverDue());
+	    	request.setAttribute("goodCli", userDAO.goodClients());
+	    	
 	    	request.getRequestDispatcher("rootView.jsp").forward(request, response);
 	    }
 	    private void userPage(HttpServletRequest request, HttpServletResponse response, String userName) throws ServletException, IOException, SQLException{
@@ -240,7 +252,7 @@ public class ControlServlet extends HttpServlet {
       
 	    
 	    
-	    protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+	    protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ParseException {
 	    	 System.out.println("in the login function");
 	    	 String email = request.getParameter("email");
 	    	 String password = request.getParameter("password");
@@ -377,6 +389,7 @@ public class ControlServlet extends HttpServlet {
 
 	    	String terms_agreed = "N/A";
 	    	String oow_status = "N/A";
+	    	String work_date = "N/A";
 
 	    	String amount_due = "N/A";
 	    	String bill_status = "N/A";
@@ -389,7 +402,7 @@ public class ControlServlet extends HttpServlet {
 	    	String quote_response_status = "Waiting";
 	
 
-	    	quote quotes= new quote(id, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
+	    	quote quotes= new quote(id, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, work_date, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
             System.out.println("made it here");
             userDAO.insertQuote(quotes);
 

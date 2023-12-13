@@ -24,6 +24,7 @@ public class quote
 	
 	protected String terms_agreed;
 	protected String oow_status;
+	protected String work_date;
 	
 	protected String amount_due;
 	protected String bill_status;
@@ -44,13 +45,13 @@ public class quote
 	    this.id = id;
 	}
 	
-	public quote(String id, String size, String height, String location, String house_dist, String num_trees, String bill_response_note, String bill_response_date, String amount_paid, String payment_date, String dispute_note, String dispute_date, String terms_agreed, String oow_status, String amount_due, String bill_status, String bill_note, String request_note, String request_status, String quote_response_note, String quote_response_status)
+	public quote(String id, String size, String height, String location, String house_dist, String num_trees, String bill_response_note, String bill_response_date, String amount_paid, String payment_date, String dispute_note, String dispute_date, String terms_agreed, String oow_status, String work_date, String amount_due, String bill_status, String bill_note, String request_note, String request_status, String quote_response_note, String quote_response_status)
 	{
-		this(size, height, location, house_dist, num_trees, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
+		this(size, height, location, house_dist, num_trees, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, work_date, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status);
 		this.id = id;
 	}
 	
-	public quote(String size, String height, String location, String house_dist, String num_trees,String bill_response_note, String bill_response_date, String amount_paid, String payment_date, String dispute_note, String dispute_date, String terms_agreed, String oow_status, String amount_due, String bill_status, String bill_note, String request_note, String request_status, String quote_response_note, String quote_response_status)
+	public quote(String size, String height, String location, String house_dist, String num_trees,String bill_response_note, String bill_response_date, String amount_paid, String payment_date, String dispute_note, String dispute_date, String terms_agreed, String oow_status, String work_date, String amount_due, String bill_status, String bill_note, String request_note, String request_status, String quote_response_note, String quote_response_status)
 	{
     	this.size = size;
     	this.height = height;
@@ -66,6 +67,7 @@ public class quote
     	this.dispute_date = dispute_date;
     	this.terms_agreed = terms_agreed;
     	this.oow_status = oow_status;
+    	this.work_date = work_date;
     	this.amount_due = amount_due;
     	this.bill_status = bill_status;
     	this.bill_note = bill_note;
@@ -121,6 +123,9 @@ public class quote
     }
     public void setOow_status(String oow_status) {
         this.oow_status = oow_status;
+    }
+    public void setWork_date(String work_date) {
+        this.work_date = work_date;
     }
     public void setAmount_due(String amount_due) {
         this.amount_due = amount_due;
@@ -187,6 +192,9 @@ public class quote
         return terms_agreed;
     }
     public String getOow_status() {
+        return oow_status;
+    }
+    public String getWork_date() {
         return oow_status;
     }
     public String getAmount_due() {

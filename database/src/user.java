@@ -17,6 +17,7 @@ public class user
 		protected String height;
 		protected String location;
 		protected String house_dist;
+		protected String num_trees;
 		protected String bill_response_note;
 		protected String bill_response_date;
 		protected String amount_paid;
@@ -53,14 +54,14 @@ public class user
 	        this.email = email;
 	    }
 	    
-	    public user(String email, String firstName, String lastName, String password, String address, String phone_num, String card_num, String card_date, String card_cvc, String role, String size, String height, String location, String house_dist, String bill_response_note, String bill_response_date, String amount_paid, String payment_date, String dispute_note, String dispute_date, String terms_agreed, String oow_status, String amount_due, String bill_status, String bill_note, String request_note, String request_status, String quote_response_note, String quote_response_status, String treeInfo_id, String payment_id, String billResponse_id, String disputes_id, String orderOfWork_id, String bill_id, String requestQuote_id, String quoteResponse_id)
+	    public user(String email, String firstName, String lastName, String password, String address, String phone_num, String card_num, String card_date, String card_cvc, String role, String size, String height, String location, String house_dist, String num_trees, String bill_response_note, String bill_response_date, String amount_paid, String payment_date, String dispute_note, String dispute_date, String terms_agreed, String oow_status, String amount_due, String bill_status, String bill_note, String request_note, String request_status, String quote_response_note, String quote_response_status, String treeInfo_id, String payment_id, String billResponse_id, String disputes_id, String orderOfWork_id, String bill_id, String requestQuote_id, String quoteResponse_id)
 	    {
-	    	this(firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, size, height, location, house_dist, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status, treeInfo_id, payment_id, billResponse_id, disputes_id, orderOfWork_id, bill_id, requestQuote_id, quoteResponse_id);
+	    	this(firstName, lastName, password, address, phone_num, card_num, card_date, card_cvc, role, size, height, location, house_dist, num_trees, bill_response_note, bill_response_date, amount_paid, payment_date, dispute_note, dispute_date, terms_agreed, oow_status, amount_due, bill_status, bill_note, request_note, request_status, quote_response_note, quote_response_status, treeInfo_id, payment_id, billResponse_id, disputes_id, orderOfWork_id, bill_id, requestQuote_id, quoteResponse_id);
 	    	this.email = email;
 	    }
 	 
 	
-	    public user(String firstName, String lastName, String password, String address, String phone_num, String card_num, String card_date, String card_cvc, String role, String size, String height, String location, String house_dist, String bill_response_note, String bill_response_date, String amount_paid, String payment_date, String dispute_note, String dispute_date, String terms_agreed, String oow_status, String amount_due, String bill_status, String bill_note, String request_note, String request_status, String quote_response_note, String quote_response_status, String treeInfo_id, String payment_id, String billResponse_id, String disputes_id, String orderOfWork_id, String bill_id, String requestQuote_id, String quoteResponse_id) 
+	    public user(String firstName, String lastName, String password, String address, String phone_num, String card_num, String card_date, String card_cvc, String role, String size, String height, String location, String house_dist, String num_trees, String bill_response_note, String bill_response_date, String amount_paid, String payment_date, String dispute_note, String dispute_date, String terms_agreed, String oow_status, String amount_due, String bill_status, String bill_note, String request_note, String request_status, String quote_response_note, String quote_response_status, String treeInfo_id, String payment_id, String billResponse_id, String disputes_id, String orderOfWork_id, String bill_id, String requestQuote_id, String quoteResponse_id) 
 	    {
 	    	  
 	    	this.firstName = firstName;  
@@ -78,22 +79,31 @@ public class user
 	    	this.height = height;
 	    	this.location = location;
 	    	this.house_dist = house_dist;
+	    	this.num_trees = num_trees;
+	    	
 	    	this.bill_response_note = bill_response_note;
 	    	this.bill_response_date = bill_response_date;
+	    	
 	    	this.amount_paid = amount_paid;
 	    	this.payment_date = payment_date;
+	    	
 	    	this.dispute_note = dispute_note;
 	    	this.dispute_date = dispute_date;
+	    	
 	    	this.terms_agreed = terms_agreed;
 	    	this.oow_status = oow_status;
+	    	
 	    	this.amount_due = amount_due;
 	    	this.bill_status = bill_status;
 	    	this.bill_note = bill_note;
+	    	
 	    	this.request_note = request_note;
 	    	this.request_status = request_status;
+	    	
 	    	this.quote_response_note = quote_response_note;
 	    	this.quote_response_status = quote_response_status;
-	    	this.bill_status = bill_status; 
+	    	
+	    	
 	    	this.treeInfo_id = treeInfo_id;
 	    	this.payment_id = payment_id;
 	    	this.billResponse_id = billResponse_id;
@@ -152,6 +162,9 @@ public class user
 	    }
 	    public void setHouse_dist(String house_dist) {
 	        this.house_dist = house_dist;
+	    }
+	    public void setNum_trees(String num_trees) {
+	    	this.num_trees = num_trees;
 	    }
 	    public void setBill_response_note(String bill_response_note) {
 	        this.bill_response_note = bill_response_note;
@@ -268,6 +281,9 @@ public class user
 	    }
 	    public String getHouse_dist() {
 	        return house_dist;
+	    }
+	    public String getNum_trees() {
+	    	return num_trees;
 	    }
 	    public String getBill_response_note() {
 	        return bill_response_note;
